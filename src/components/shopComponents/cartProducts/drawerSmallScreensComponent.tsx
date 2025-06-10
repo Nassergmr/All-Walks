@@ -11,8 +11,6 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 
-import { useEffect } from "react";
-
 interface DrawerSmallScreensProps {
   open: boolean;
   setOpen: (open: boolean) => void;

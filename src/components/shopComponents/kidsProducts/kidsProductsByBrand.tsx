@@ -87,6 +87,7 @@ const KidsProductsByBrands: React.FC<KidsProductsByBrandsProps> = ({
     if (brand) {
       fetchProducts(currentPage, brand);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, brand]);
 
   // Fetch More Products On Scroll
