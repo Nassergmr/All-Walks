@@ -26,11 +26,11 @@ import { addToFavorites } from "@/redux/features/favorites/favoritesSlice";
 import { RootState } from "@/redux/store";
 import { toast } from "react-toastify";
 
-interface MenProductsByBrandProps {
+interface singleProductProp {
   id: string;
 }
 
-const SingleProduct: React.FC<MenProductsByBrandProps> = ({ id }) => {
+const SingleProduct: React.FC<singleProductProp> = ({ id }) => {
   const [productInfo, setProductInfo] = useState<{
     gallery_360: string[];
     gender: string;
