@@ -44,7 +44,7 @@ const ScrollToTop: React.FC<ScrollToTopProps> = ({ scrollTo }) => {
       {showButton && (
         <button
           onClick={backToTop}
-          className="fixed text-white bottom-[10px] z-50 left-[50%] -translate-x-1/2 p-2 rounded-full bg-[#6457FD] hover:bg-[#5046ca] flex justify-center items-center"
+          className="fixed text-white bottom-[30px] z-50 left-[50%] -translate-x-1/2 p-2 rounded-full bg-[#6457FD] hover:bg-[#5046ca] flex justify-center items-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

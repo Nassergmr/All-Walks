@@ -30,7 +30,7 @@ interface singleProductProp {
   id: string;
 }
 
-const SingleProduct: React.FC<singleProductProp> = ({ id }) => {
+const SingleProduct: React.FC<singleProductProp> = ({ id }: { id: string }) => {
   const [productInfo, setProductInfo] = useState<{
     gallery_360: string[];
     gender: string;
