@@ -44,12 +44,12 @@ export const RegisterAction = async (data: z.infer<typeof RegisterSchema>) => {
         password,
         redirect: false,
       });
-    } catch (error) {
-      return error;
+    } catch {
+      return { error: "Something went wrong!" };
     }
 
     return { success: "Account created successfully!", registeredUser };
-  } catch (error) {
-    return error;
+  } catch {
+    return { error: "Something went wrong!" };
   }
 };
