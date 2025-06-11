@@ -9,16 +9,12 @@ import {
   DialogTrigger,
 } from "../../ui/dialog";
 
-import { useRef } from "react";
-
 interface DialogComponentProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const DialogComponent: React.FC<DialogComponentProps> = ({ open, setOpen }) => {
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger id="search" className="hidden sm:block">
@@ -38,10 +34,10 @@ const DialogComponent: React.FC<DialogComponentProps> = ({ open, setOpen }) => {
         </svg>
       </DialogTrigger>
 
-      <DialogContent scrollRef={scrollRef}>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle className="mb-2">Search Your Product Here</DialogTitle>
-          <SearchComponent setOpen={setOpen} scrollRef={scrollRef} />
+          <SearchComponent setOpen={setOpen} />
         </DialogHeader>
       </DialogContent>
     </Dialog>

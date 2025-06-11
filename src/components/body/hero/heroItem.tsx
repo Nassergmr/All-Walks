@@ -1,5 +1,4 @@
 import Image from "next/image";
-// import { Button } from "@/components/ui/button";
 import ButtonMain from "@/components/elements/buttonMain";
 
 interface HeroItemsProps {

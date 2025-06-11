@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { CheckoutButton } from "./checkoutButton";
+import { useEffect, useState } from "react";
 
 interface checkoutProps {
   setOpenDrawer: (value: boolean) => void;
@@ -13,20 +14,24 @@ interface checkoutProps {
 const Checkout: React.FC<checkoutProps> = ({ setOpenDrawer }) => {
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
-  const getTotal = () => {
-    let totalPrice = 0;
-    cartItems.forEach((item) => {
-      totalPrice += item.min_price * item.quantity;
-    });
+  const [totalPrice, setTotalPrice] = useState(0);
 
-    const formattedAmount = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-    }).format(totalPrice);
+  useEffect(() => {
+    const getTotal = () => {
+      let total = 0;
+      cartItems.forEach((item) => {
+        total += item.min_price * item.quantity;
+      });
+      setTotalPrice(total);
+    };
+    getTotal();
+  }, [cartItems]);
 
-    return formattedAmount;
-  };
+  const formattedAmount = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(totalPrice);
 
   return (
     <div
@@ -37,7 +42,7 @@ const Checkout: React.FC<checkoutProps> = ({ setOpenDrawer }) => {
     >
       <div id="total" className="flex justify-between">
         <p className="font-bold">Total Cost</p>
-        <p> {getTotal()}</p>
+        <p> {formattedAmount}</p>
       </div>
       <Link href={"/checkout"} onClick={() => setOpenDrawer(false)}>
         <CheckoutButton />

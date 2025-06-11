@@ -1,7 +1,13 @@
 import BreadcrumbNav from "@/components/elements/breadCrumbNave";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Product } from "@/types/types";
 
-const BreadCrambNavComponent: React.FC = ({ productInfo }) => {
+type BreadCrambNavComponentProps = {
+  productInfo: Product;
+};
+const BreadCrambNavComponent: React.FC<BreadCrambNavComponentProps> = ({
+  productInfo,
+}) => {
   return (
     <BreadcrumbNav
       items={[

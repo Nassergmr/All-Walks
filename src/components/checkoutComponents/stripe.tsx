@@ -11,11 +11,11 @@ import { Button } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 import { toast } from "react-toastify";
 
-type StrapiProps = {
+type StripeProps = {
   totalAmount: number;
 };
 
-const Strapi: React.FC<StrapiProps> = ({ totalAmount }) => {
+const Stripe: React.FC<StripeProps> = ({ totalAmount }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
@@ -120,4 +120,4 @@ const Strapi: React.FC<StrapiProps> = ({ totalAmount }) => {
   );
 };
 
-export default Strapi;
+export default Stripe;

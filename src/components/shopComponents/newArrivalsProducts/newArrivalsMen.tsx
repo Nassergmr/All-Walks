@@ -5,17 +5,16 @@ import Link from "next/link";
 import { getNewArrivalsMenProducts } from "@/services/productServices";
 import MainProductCard from "@/components/elements/mainProductCard";
 import BreadcrumbNav from "@/components/elements/breadCrumbNave";
+import { Product } from "@/types/types";
 
 const NewArrivalsMen: React.FC = () => {
-  const [menNewArrivals, setMenNewArrivals] = useState([]);
+  const [menNewArrivals, setMenNewArrivals] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchedProducts = async () => {
-      const data = await getNewArrivalsMenProducts();
-      const filteredProducts = data.data.filter(
-        (item) => item.product_type === "sneakers"
-      );
-      setMenNewArrivals(filteredProducts);
+      const products = await getNewArrivalsMenProducts();
+
+      setMenNewArrivals(products.data);
     };
     fetchedProducts();
   }, []);
@@ -67,7 +66,7 @@ const NewArrivalsMen: React.FC = () => {
             id={e.id}
             gender={e.gender}
             imageSrc={e.image}
-            price={e.min_price}
+            price={e.min_price ?? 0}
             model={e.model}
             link={`/product/${e.id}`}
           />

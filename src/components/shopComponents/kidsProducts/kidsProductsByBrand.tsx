@@ -19,18 +19,11 @@ import { allowedKidsBrandsConstant } from "@/components/constants/constants";
 import { Loader2 } from "lucide-react";
 import Slider from "react-slick";
 import { toast } from "react-toastify";
+import { BrandProp, Product } from "@/types/types";
 
-interface KidsProductsByBrandsProps {
-  brand: string;
-}
-
-const KidsProductsByBrands: React.FC<KidsProductsByBrandsProps> = ({
-  brand,
-}: {
-  brand: string;
-}) => {
-  const [kidsProducts, setKidsProducts] = useState([]);
-  const [brands, setBrands] = useState([]);
+const KidsProductsByBrands: React.FC<BrandProp> = ({ brand }) => {
+  const [kidsProducts, setKidsProducts] = useState<Product[]>([]);
+  const [brands, setBrands] = useState<{ brand: string }[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -43,7 +36,7 @@ const KidsProductsByBrands: React.FC<KidsProductsByBrandsProps> = ({
     const fetchAllBrands = async () => {
       const brands = await getAllBrands();
 
-      const filteredBrands = brands.filter((item) =>
+      const filteredBrands = brands.filter((item: { brand: string }) =>
         allowedKidsBrandsConstant.includes(item.brand)
       );
       setBrands(filteredBrands);
@@ -58,7 +51,8 @@ const KidsProductsByBrands: React.FC<KidsProductsByBrandsProps> = ({
       const { products } = await getKidsProductsByBrand(brand, page);
 
       const filteredProducts = products.filter(
-        (item) => item.min_price !== null && item.min_price !== 0
+        (item: { min_price: number | null }) =>
+          item.min_price !== null && item.min_price !== 0
       );
 
       setKidsProducts((prev) => [...prev, ...filteredProducts]);
@@ -250,7 +244,7 @@ const KidsProductsByBrands: React.FC<KidsProductsByBrandsProps> = ({
                 key={e.id}
                 imageSrc={e.image}
                 model={e.model}
-                price={e.min_price}
+                price={e.min_price ?? 0}
                 link={`/product/${e.id}`}
               />
             ))}

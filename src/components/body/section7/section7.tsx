@@ -1,9 +1,9 @@
 "use client";
 
+import { useEffect, useMemo } from "react";
 import { brandsConstantBanner } from "@/components/constants/constants";
 import { animate, motion, useMotionValue } from "motion/react";
 import Image from "next/image";
-import { useEffect, useMemo } from "react";
 import useMeasure from "react-use-measure";
 
 const Section7: React.FC = () => {

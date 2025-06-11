@@ -23,14 +23,15 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { toast } from "react-toastify";
+import { Product } from "@/types/types";
 
 const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
   brand,
 }: {
   brand: string;
 }) => {
-  const [menProducts, setMenProducts] = useState([]);
-  const [brands, setBrands] = useState([]);
+  const [menProducts, setMenProducts] = useState<Product[]>([]);
+  const [brands, setBrands] = useState<{ brand: string }[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -44,7 +45,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
       const brands = await getAllBrands();
       const allowedBrands = allowedBrandsConstant;
 
-      const filteredBrands = brands.filter((item) =>
+      const filteredBrands = brands.filter((item: { brand: string }) =>
         allowedBrands.includes(item.brand)
       );
       setBrands(filteredBrands);
@@ -72,7 +73,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
       const { products } = await getMenProductsByBrand(brand, page);
 
       const filteredProducts = products.filter(
-        (item) => item.min_price !== null && item.min_price !== 0
+        (item: Product) => item.min_price !== null && item.min_price !== 0
       );
 
       setMenProducts((prev) => [...prev, ...filteredProducts]);
@@ -276,7 +277,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
                 key={e.id}
                 imageSrc={e.image}
                 model={e.model}
-                price={e.min_price}
+                price={e.min_price ?? 0}
                 link={`/product/${e.id}`}
               />
             ))}

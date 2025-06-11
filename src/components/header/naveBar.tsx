@@ -24,7 +24,7 @@ import { Skeleton } from "../ui/skeleton";
 // Redux
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import DrawerSmallScreensComponent from "../shopComponents/cartProducts/drawerSmallScreensComponent";
+import DrawerSmallScreensComponent from "./drawerSmallScreensComponent";
 
 const Navebar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(true);
@@ -131,6 +131,7 @@ const Navebar: React.FC = () => {
 
             {/* NaveBar Icons */}
             <div id="nave-icons" className="flex items-center gap-3 ">
+              {/* If No User Show Default Icon */}
               {status === "unauthenticated" ? (
                 <button id="user">
                   <Link href="/sign-in">
@@ -153,12 +154,14 @@ const Navebar: React.FC = () => {
               ) : status === "loading" ? (
                 <Skeleton className="size-6 rounded-full" />
               ) : (
+                // If There Is User Show His Profile Picture
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <Avatar>
                       {!isLoaded && (
                         <Skeleton className="size-6 rounded-full" />
                       )}
+                      {/* Profile Picture Exists */}
                       {session?.user?.image ? (
                         <Image
                           onLoad={() => setIsLoaded(true)}
@@ -168,6 +171,7 @@ const Navebar: React.FC = () => {
                           height={28}
                         />
                       ) : (
+                        // Profile Picture Does Not Exist
                         <div
                           id="user_image"
                           className={`bg-[#6457FD] text-white text-xs absolute size-full rounded-full flex items-center justify-center  font-bold`}
@@ -195,7 +199,7 @@ const Navebar: React.FC = () => {
               {/* Search */}
               <DialogComponent open={open} setOpen={setOpen} />
 
-              {/* Favorites*/}
+              {/* Favorites */}
               <button id="heart" className="hidden sm:block">
                 <Link href="/favorites" className="relative">
                   <svg

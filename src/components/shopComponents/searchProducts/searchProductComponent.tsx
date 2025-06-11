@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-
 import { getSeachProducts } from "@/services/productServices";
 import SearchProductCard from "../../elements/searchProductCard";
 import { Loader2 } from "lucide-react";

@@ -7,14 +7,7 @@ import { getNikeBrand } from "@/services/productServices";
 import MainProductCard from "@/components/elements/mainProductCard";
 import { useInView } from "react-intersection-observer";
 import Slider from "react-slick";
-
-interface Product {
-  image: string;
-  model: string;
-  min_price: number;
-  id: string;
-  gender: string;
-}
+import { Product } from "@/types/types";
 
 const Section3: React.FC = () => {
   const [nikeBrand, setNikeBrand] = useState<Product[]>([]);
@@ -190,7 +183,7 @@ const Section3: React.FC = () => {
               key={e.id}
               imageSrc={e.image}
               model={e.model}
-              price={e.min_price}
+              price={e.min_price ?? 0}
               link={`/product/${e.id}`}
             />
           ))}
@@ -207,7 +200,7 @@ const Section3: React.FC = () => {
               key={e.id}
               imageSrc={e.image}
               model={e.model}
-              price={e.min_price}
+              price={e.min_price ?? 0}
               link={`/product/${e.id}`}
             />
           ))}
@@ -224,7 +217,7 @@ const Section3: React.FC = () => {
               key={e.id}
               imageSrc={e.image}
               model={e.model}
-              price={e.min_price}
+              price={e.min_price ?? 0}
               link={`/product/${e.id}`}
             />
           ))}

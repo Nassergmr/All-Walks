@@ -28,9 +28,18 @@ import {
   removeAllItems,
   removeItem,
 } from "@/redux/features/cart/cartSlice";
+import { CartItem } from "@/types/types";
 
-const DrawerComponent: React.FC = ({ openDrawer, setOpenDrawer }) => {
-  const [cartProducts, setCartProducts] = useState([]);
+interface DrawerComponentProps {
+  openDrawer: boolean;
+  setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const DrawerComponent: React.FC<DrawerComponentProps> = ({
+  openDrawer,
+  setOpenDrawer,
+}) => {
+  const [cartProducts, setCartProducts] = useState<CartItem[]>([]);
 
   const dispatch = useDispatch();
   const cartQuantity = useSelector(
@@ -42,15 +51,15 @@ const DrawerComponent: React.FC = ({ openDrawer, setOpenDrawer }) => {
     setCartProducts(cartItems);
   }, [cartItems]);
 
-  const handleIncrementQuantity = (item) => {
+  const handleIncrementQuantity = (item: CartItem) => {
     dispatch(incrementQuantity(item));
   };
 
-  const handleDecrementQuantity = (item) => {
+  const handleDecrementQuantity = (item: CartItem) => {
     dispatch(decrementQuantity(item));
   };
 
-  const handleRemoveItem = (item) => {
+  const handleRemoveItem = (item: CartItem) => {
     dispatch(removeItem(item));
   };
 

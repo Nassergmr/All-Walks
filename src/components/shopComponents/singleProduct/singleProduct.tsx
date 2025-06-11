@@ -14,7 +14,7 @@ import TabsComponent from "./tabsComponent";
 import BreadCrambNavComponent from "./breadCrambNavComponent";
 import ProductBanner from "@/components/elements/productBanner";
 
-// Shadcn Ui
+// Shadcn UI
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Slider } from "@/components/ui/slider";
@@ -25,38 +25,18 @@ import { addToCart } from "@/redux/features/cart/cartSlice";
 import { addToFavorites } from "@/redux/features/favorites/favoritesSlice";
 import { RootState } from "@/redux/store";
 import { toast } from "react-toastify";
+import { Product } from "@/types/types";
 
-interface singleProductProp {
+type Props = {
   id: string;
-}
+};
 
-const SingleProduct: React.FC<singleProductProp> = ({ id }: { id: string }) => {
-  const [productInfo, setProductInfo] = useState<{
-    gallery_360: string[];
-    gender: string;
-    brand: string;
-    title: string;
-    short_description: string;
-    min_price: number;
-    avg_price: number;
-    max_price: number;
-    image: string;
-  }>({
-    gallery_360: [],
-    gender: "",
-    brand: "",
-    title: "",
-    short_description: "",
-    min_price: 0,
-    image: "",
-    avg_price: 0,
-    max_price: 0,
-  });
-
-  const [index, setIndex] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [selectedSize, setSelectedSize] = useState(null);
-  const [isHovered, setIsHovered] = useState(false);
+const SingleProduct: React.FC<Props> = ({ id }) => {
+  const [productInfo, setProductInfo] = useState<Product>({} as Product);
+  const [index, setIndex] = useState<number>(0);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const isAdded = useSelector((state: RootState) =>
     state.favorites.favoritesItems.some((item) => item.id === id)
@@ -69,34 +49,37 @@ const SingleProduct: React.FC<singleProductProp> = ({ id }: { id: string }) => {
     const fetchProduct = async () => {
       const { product } = await getSingleProduct(id);
       setProductInfo(product);
+      console.log(selectedSize);
     };
     fetchProduct();
-  }, [id]);
+  }, [id, selectedSize]);
 
   useEffect(() => {
-    if (productInfo.gallery_360.length > 0) {
-      productInfo.gallery_360.forEach((src) => {
+    if ((productInfo?.gallery_360 ?? []).length > 0) {
+      productInfo.gallery_360?.forEach((src) => {
         const img = new window.Image();
         img.src = src;
       });
     }
-  }, [productInfo.gallery_360]);
+  }, [productInfo?.gallery_360]);
 
   // 360 Image Slider
-  const handleSliderChange = (value) => {
+  const handleSliderChange = (value: number[]) => {
     setIndex(value[0]);
   };
 
-  const handleAddToCart = (productInfo) => {
+  const handleAddToCart = (product: Product) => {
     toast.success("Added to cart");
-    dispatch(addToCart({ ...productInfo, size: selectedSize }));
+    dispatch(addToCart({ ...product, size: selectedSize || 0 }));
   };
 
-  const handleAddToFavorites = (productInfo) => {
+  const handleAddToFavorites = (product: Product) => {
     if (!isAdded) {
       toast.success("Added to favorites");
-    } else toast.success("Removed from favorites");
-    dispatch(addToFavorites({ ...productInfo }));
+    } else {
+      toast.success("Removed from favorites");
+    }
+    dispatch(addToFavorites({ ...product }));
   };
 
   return (
@@ -114,7 +97,7 @@ const SingleProduct: React.FC<singleProductProp> = ({ id }: { id: string }) => {
             id="image_container"
             className="relative border-1 py-8 rounded-md border-solid border-gray-200"
           >
-            {productInfo.gallery_360.length !== 0 ? (
+            {productInfo.gallery_360?.length !== 0 ? (
               <div
                 id="gallery"
                 className="sm:w-[400px] w-[300px]  sm:h-[400px] h-[250px] mx-auto"
@@ -122,7 +105,7 @@ const SingleProduct: React.FC<singleProductProp> = ({ id }: { id: string }) => {
                 {!isLoaded && (
                   <Skeleton className="sm:w-[400px] w-[300px] sm:h-[400px] h-[250px]  mx-auto" />
                 )}
-                {productInfo.gallery_360[index] && (
+                {productInfo.gallery_360 && productInfo.gallery_360[index] && (
                   <Image
                     src={productInfo.gallery_360[index]}
                     fill
@@ -135,7 +118,7 @@ const SingleProduct: React.FC<singleProductProp> = ({ id }: { id: string }) => {
                 <Slider
                   className="cursor-pointer bottom-[-20px] absolute left-[50%] translate-x-[-50%] w-[70%] sm:w-[50%]"
                   min={0}
-                  max={productInfo.gallery_360.length - 1}
+                  max={(productInfo.gallery_360?.length ?? 0) - 1}
                   step={1}
                   value={[index]}
                   onValueChange={handleSliderChange}
@@ -233,14 +216,14 @@ const SingleProduct: React.FC<singleProductProp> = ({ id }: { id: string }) => {
                       <button
                         id={`${size.available ? "" : "unavailable"}`}
                         disabled={size.available === false}
-                        onClick={() => setSelectedSize(size.size)}
+                        onClick={() => setSelectedSize(Number(size.size))}
                         title={`${
                           size.available
                             ? ""
                             : "Unavailable – Please choose another size"
                         }`}
                         className={`${
-                          size.size === selectedSize
+                          Number(size.size) === selectedSize
                             ? "bg-black text-white pointer-events-none focus:bg-black"
                             : ""
                         } overflow-hidden relative  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px]  sm:h-[55px] w-full flex items-center justify-center border-1 border-black`}
@@ -253,14 +236,14 @@ const SingleProduct: React.FC<singleProductProp> = ({ id }: { id: string }) => {
                       <button
                         id={`${size.available ? "" : "unavailable"}`}
                         disabled={size.available === false}
-                        onClick={() => setSelectedSize(size.size)}
+                        onClick={() => setSelectedSize(Number(size.size))}
                         title={`${
                           size.available
                             ? ""
                             : "Unavailable – Please choose another size"
                         }`}
                         className={`${
-                          size.size === selectedSize
+                          Number(size.size) === selectedSize
                             ? "bg-black text-white pointer-events-none focus:bg-black"
                             : ""
                         } overflow-hidden relative  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out  h-[45px]  sm:h-[55px] w-full flex items-center justify-center border-1 border-black`}

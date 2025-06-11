@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
-// import { IoSend } from "react-icons/io5";
-import {
-  Button,
-  type ButtonProps as BaseButtonProps,
-} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 type ButtonProps = {
-  children: React.ReactNode;
-} & BaseButtonProps;
+  children?: React.ReactNode;
+  Icon?: React.ReactNode;
+  text: string;
+  favoritesItems?: unknown[]; // or your actual type
+  cartQuantity?: number;
+} & React.ComponentProps<typeof Button>;
 
 //======================================
 export const EmptyButton = ({
@@ -32,7 +32,7 @@ export const EmptyButton = ({
   favoritesItems = [],
   cartQuantity = 0,
   ...rest
-}: ButtonProps & { Icon: React.ReactNode }) => {
+}: ButtonProps) => {
   return (
     <Button
       variant={"outline"}

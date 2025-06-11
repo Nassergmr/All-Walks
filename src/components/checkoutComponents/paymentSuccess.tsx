@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { useDispatch } from "react-redux";
 import { removeAllItems } from "@/redux/features/cart/cartSlice";
-// import { useSearchParams } from "next/navigation";
 
 const PaymentSuccess = () => {
   const handleRemoveAllItems = () => {

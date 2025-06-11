@@ -1,15 +1,6 @@
-// "use client";
-
 import TextLoop from "../elements/textLoop";
-// import { usePathname } from "next/navigation";
 
 const TopNaveBar: React.FC = () => {
-  //   const path = usePathname();
-
-  //   if (path !== "/") {
-  //     return null;
-  //   }
-
   return (
     <div
       id="top-navebar"

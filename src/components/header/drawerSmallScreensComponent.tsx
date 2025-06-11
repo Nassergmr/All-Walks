@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import Image from "next/image";
 
 import {
   Drawer,
@@ -8,8 +10,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import Link from "next/link";
-import Image from "next/image";
 
 interface DrawerSmallScreensProps {
   open: boolean;

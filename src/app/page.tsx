@@ -1,4 +1,3 @@
-// import Image from "next/image";
 import Hero from "@/components/body/hero/hero";
 import Section1 from "@/components/body/section1/section1";
 import Section2 from "@/components/body/section2/section2";
@@ -7,7 +6,6 @@ import Section4 from "@/components/body/section4/section4";
 import Section5 from "@/components/body/section5/section5";
 import Section6 from "@/components/body/section6/section6";
 import Section7 from "@/components/body/section7/section7";
-// import Section8 from "@/components/body/Section8/Section8";
 
 export default function Home() {
   return (

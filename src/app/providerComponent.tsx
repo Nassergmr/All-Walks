@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
@@ -48,7 +47,7 @@ export function ProviderComponent({ children }: { children: React.ReactNode }) {
       </Provider>
       <ToastContainer
         position={"top-center"}
-        autoClose={isAuthRoutes ? 2500 : 1000}
+        autoClose={isAuthRoutes ? 2500 : 800}
         hideProgressBar={false}
         newestOnTop={false}
         rtl={false}

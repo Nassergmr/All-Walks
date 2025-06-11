@@ -14,10 +14,11 @@ import BreadcrumbNav from "@/components/elements/breadCrumbNave";
 
 // Shadcn Ui
 import { Loader2 } from "lucide-react";
+import { Product } from "@/types/types";
 
 const WomenProducts: React.FC = () => {
-  const [womenProducts, setWomenProducts] = useState([]);
-  const [brands, setBrands] = useState([]);
+  const [womenProducts, setWomenProducts] = useState<Product[]>([]);
+  const [brands, setBrands] = useState<{ brand: string }[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -29,7 +30,7 @@ const WomenProducts: React.FC = () => {
     const fetchAllBrands = async () => {
       const brands = await getAllBrands();
       const allowedBrands = allowedBrandsConstant;
-      const filteredBrands = brands.filter((item) =>
+      const filteredBrands = brands.filter((item: { brand: string }) =>
         allowedBrands.includes(item.brand)
       );
       setBrands(filteredBrands);
@@ -46,7 +47,9 @@ const WomenProducts: React.FC = () => {
     setLoading(true);
     const { products } = await getAllWomenProducts(page);
 
-    const filteredProducts = products.filter((item) => item.min_price !== null);
+    const filteredProducts = products.filter(
+      (item: Product) => item.min_price !== null
+    );
 
     setWomenProducts((prev) => [...prev, ...filteredProducts]);
     setLoading(false);
@@ -223,7 +226,7 @@ const WomenProducts: React.FC = () => {
                 key={e.id}
                 imageSrc={e.image}
                 model={e.model}
-                price={e.min_price}
+                price={e.min_price ?? 0}
                 link={`/product/${e.id}`}
               />
             ))}

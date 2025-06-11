@@ -18,6 +18,7 @@ import BreadcrumbNav from "@/components/elements/breadCrumbNave";
 // Shadcn Ui
 import { Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
+import { Product } from "@/types/types";
 
 interface WomenProductsByBrandProps {
   brand: string;
@@ -28,8 +29,8 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
 }: {
   brand: string;
 }) => {
-  const [WomenProducts, setWomenProducts] = useState([]);
-  const [brands, setBrands] = useState([]);
+  const [WomenProducts, setWomenProducts] = useState<Product[]>([]);
+  const [brands, setBrands] = useState<{ brand: string }[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -43,7 +44,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
       const brands = await getAllBrands();
       const allowedBrands = allowedBrandsConstant;
 
-      const filteredBrands = brands.filter((item) =>
+      const filteredBrands = brands.filter((item: { brand: string }) =>
         allowedBrands.includes(item.brand)
       );
       setBrands(filteredBrands);
@@ -58,7 +59,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
       const { products } = await getWomenProductsByBrand(brand, page);
 
       const filteredProducts = products.filter(
-        (item) => item.min_price !== null && item.min_price !== 0
+        (item: Product) => item.min_price !== null && item.min_price !== 0
       );
 
       setWomenProducts((prev) => [...prev, ...filteredProducts]);
@@ -281,7 +282,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
                 key={e.id}
                 imageSrc={e.image}
                 model={e.model}
-                price={e.min_price}
+                price={e.min_price ?? 0}
                 link={`/product/${e.id}`}
               />
             ))}

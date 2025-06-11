@@ -50,6 +50,14 @@ const MainProductCard: React.FC<CardItemsProps> = ({
         min_price: price,
         gender: gender,
         isAdded: isAdded,
+        size: 0,
+        brand: "",
+        max_price: 0,
+        title: "",
+        short_description: "",
+        created_at: 0,
+        weekly_orders: 0,
+        gallery_360: [],
       })
     );
   };
@@ -58,7 +66,6 @@ const MainProductCard: React.FC<CardItemsProps> = ({
     <div
       id="product_card"
       className="relative  w-full max-w-[350px] min-h-[320px] max-h-[355px] sm:min-h-[346px] sm:max-h-[350px] flex flex-col border border-gray-200 rounded-lg shadow-md bg-white overflow-hidden group"
-      // mx-1  md:mx-0
     >
       <button
         onClick={() => handleAddToFavorites()}
@@ -128,18 +135,6 @@ const MainProductCard: React.FC<CardItemsProps> = ({
           </Link>
         </button>
       </div>
-      {/* 
-      <ToastContainer
-        position="bottom-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={true}
-        rtl={false}
-        pauseOnFocusLoss
-        theme="dark"
-        transition={Slide}
-      /> */}
     </div>
   );
 };

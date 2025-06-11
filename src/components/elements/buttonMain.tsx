@@ -21,5 +21,3 @@ const ButtonMain: React.FC<ButtonMainProps> = ({ label, href }) => {
 };
 
 export default ButtonMain;
-
-// components/ButtonMain.tsx

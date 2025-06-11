@@ -26,9 +26,10 @@ import {
 } from "@/redux/features/favorites/favoritesSlice";
 import { addToCart } from "@/redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
+import { Product } from "@/types/types";
 
 const Favorites: React.FC = () => {
-  const [favoritesProducts, setFavoritesProducts] = useState([]);
+  const [favoritesProducts, setFavoritesProducts] = useState<Product[]>([]);
   const [isLoaded, setisLoaded] = useState(false);
   const [visibleProductId, setVisibleProductId] = useState<string | null>(null);
   const [isClickedId, setIsClickedId] = useState<string | null>(null);
@@ -42,24 +43,41 @@ const Favorites: React.FC = () => {
     setFavoritesProducts(favoritesItems);
   }, [favoritesItems]);
 
-  const handleAddToCart = (product, size) => {
+  const handleAddToCart = (product: Product, size: number) => {
     toast.success("Added to cart");
     dispatch(addToCart({ ...product, size }));
   };
 
-  const handleRemoveFromFavorites = (id) => {
-    dispatch(removeItem({ id }));
+  const handleRemoveFromFavorites = (id: string) => {
+    dispatch(
+      removeItem({
+        id,
+        isAdded: false,
+        gender: "",
+        image: "",
+        model: "",
+        min_price: 0,
+        size: 0,
+        brand: "",
+        title: "",
+        max_price: 0,
+        short_description: "",
+        created_at: 0,
+        weekly_orders: 0,
+        gallery_360: null,
+      })
+    );
   };
 
   const handleRemoveAllFavorites = () => {
     dispatch(removeAllItems());
   };
 
-  const handleIsVisible = (id) => {
+  const handleIsVisible = (id: string) => {
     setVisibleProductId((prev) => (prev === id ? null : id));
   };
 
-  const handleIsClicked = (id) => {
+  const handleIsClicked = (id: string) => {
     setIsClickedId((prev) => (prev === id ? null : id));
   };
 
@@ -212,19 +230,19 @@ const Favorites: React.FC = () => {
                       </h3>
                       <div
                         id="sizes_container"
-                        className="grid grid-cols-5 sm:grid-cols-4 md:grid-cols-3 xl:grid-cols-4 gap-x-3 gap-y-3"
+                        className="grid grid-cols-6 sm:grid-cols-5 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-x-3 gap-y-3"
                       >
                         {e.gender !== "kids"
                           ? dummySizesConstant.map((size) => (
                               <button
                                 onClick={() => {
-                                  handleAddToCart(e, size.size);
+                                  handleAddToCart(e, Number(size.size));
                                 }}
                                 key={size.size}
                                 className={`${
                                   size.available ? "block" : "hidden"
                                 }
-                          overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px] w-auto flex items-center justify-center border-1 border-black
+                          overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px] w-[45px] flex items-center justify-center border-1 border-black
                           `}
                               >
                                 {size.size}
@@ -233,13 +251,13 @@ const Favorites: React.FC = () => {
                           : dummySizesKidsConstant.map((size) => (
                               <button
                                 onClick={() => {
-                                  handleAddToCart(e, size.size);
+                                  handleAddToCart(e, Number(size.size));
                                 }}
                                 key={size.size}
                                 className={`${
                                   size.available ? "block" : "hidden"
                                 }
-                          overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px] w-auto flex items-center justify-center border-1 border-black
+                          overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px] w-[45px] flex items-center justify-center border-1 border-black
                           `}
                               >
                                 {size.size}

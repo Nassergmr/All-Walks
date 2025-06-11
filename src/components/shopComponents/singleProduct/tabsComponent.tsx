@@ -1,6 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Product } from "@/types/types";
 
-const TabsComponent: React.FC = ({ productInfo }) => {
+type TabsComponentProps = {
+  productInfo: Product;
+};
+const TabsComponent: React.FC<TabsComponentProps> = ({ productInfo }) => {
   return (
     <div id="tabs_container" className="mt-10">
       <Tabs defaultValue="description" className="w-full">

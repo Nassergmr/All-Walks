@@ -8,10 +8,6 @@ import "slick-carousel/slick/slick-theme.css";
 const Section1: React.FC = () => {
   const settings = {
     infinite: true,
-    // fade: true,
-    // slidesToShow: 1,
-    // slidesToScroll: 1,
-
     speed: 500,
     cssEase: "ease-in-out",
     arrows: false,

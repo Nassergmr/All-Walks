@@ -5,17 +5,16 @@ import Link from "next/link";
 import { getNewArrivalsWomenProducts } from "@/services/productServices";
 import BreadcrumbNav from "@/components/elements/breadCrumbNave";
 import MainProductCard from "@/components/elements/mainProductCard";
+import { Product } from "@/types/types";
 
 const NewArrivalsWomen: React.FC = () => {
-  const [womenNewArrivals, setWomenNewArrivals] = useState([]);
+  const [womenNewArrivals, setWomenNewArrivals] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchedProducts = async () => {
-      const data = await getNewArrivalsWomenProducts();
-      const filteredProducts = data.data.filter(
-        (item) => item.product_type === "sneakers" && item.gender === "women"
-      );
-      setWomenNewArrivals(filteredProducts);
+      const products = await getNewArrivalsWomenProducts();
+
+      setWomenNewArrivals(products.data);
     };
     fetchedProducts();
   }, []);
@@ -74,7 +73,7 @@ border-[#D3D4D5] border-b-2 group w-1/2 "
             gender={e.gender}
             key={e.id}
             imageSrc={e.image}
-            price={e.min_price}
+            price={e.min_price ?? 0}
             model={e.model}
             link={`/product/${e.id}`}
           />
