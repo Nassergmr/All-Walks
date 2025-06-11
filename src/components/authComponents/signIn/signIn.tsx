@@ -77,7 +77,7 @@ const SignIn: React.FC = () => {
         route.push("/");
       }
     } catch (error) {
-      console.error(error);
+      return error;
     }
   };
 

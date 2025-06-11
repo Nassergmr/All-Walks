@@ -49,7 +49,6 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
     const fetchProduct = async () => {
       const { product } = await getSingleProduct(id);
       setProductInfo(product);
-      console.log(selectedSize);
     };
     fetchProduct();
   }, [id, selectedSize]);

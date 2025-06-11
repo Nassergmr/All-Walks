@@ -94,7 +94,7 @@ const Checkout: React.FC = () => {
         <div id="right_section" className="bg-gray-100">
           <div
             id="checkout_items_container"
-            className="flex border-l overflow-y-auto min-h-[calc(100vh-202px)] h-auto flex-col px-12 py-5 bg-gray-100"
+            className="flex border-l overflow-y-auto  h-auto flex-col px-12 py-5 bg-gray-100"
           >
             {cartItems.map((item) => (
               <div
@@ -146,7 +146,7 @@ const Checkout: React.FC = () => {
           <hr />
           <div
             id="total"
-            className="flex justify-between items-center border-l px-12 py-5 bg-gray-100"
+            className="flex mt-auto justify-between items-center border-l px-12 py-5 bg-gray-100"
           >
             <div className="">
               <span className="text-lg font-bold"> Total Cost</span>
