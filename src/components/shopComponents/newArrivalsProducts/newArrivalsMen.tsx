@@ -66,7 +66,7 @@ const NewArrivalsMen: React.FC = () => {
             id={e.id}
             gender={e.gender}
             imageSrc={e.image}
-            price={e.min_price ?? 0}
+            price={e.min_price}
             model={e.model}
             link={`/product/${e.id}`}
           />

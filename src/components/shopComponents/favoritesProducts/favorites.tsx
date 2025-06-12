@@ -43,7 +43,7 @@ const Favorites: React.FC = () => {
     setFavoritesProducts(favoritesItems);
   }, [favoritesItems]);
 
-  const handleAddToCart = (product: Product, size: number) => {
+  const handleAddToCart = (product: Product, size: number | string) => {
     toast.success("Added to cart");
     dispatch(addToCart({ ...product, size }));
   };
@@ -232,6 +232,7 @@ const Favorites: React.FC = () => {
                         id="sizes_container"
                         className="grid grid-cols-6 sm:grid-cols-5 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-x-3 gap-y-3"
                       >
+                        {/* Adult Sizes */}
                         {e.gender !== "kids"
                           ? dummySizesConstant.map((size) => (
                               <button
@@ -248,10 +249,11 @@ const Favorites: React.FC = () => {
                                 {size.size}
                               </button>
                             ))
-                          : dummySizesKidsConstant.map((size) => (
+                          : // Kids Sizes
+                            dummySizesKidsConstant.map((size) => (
                               <button
                                 onClick={() => {
-                                  handleAddToCart(e, Number(size.size));
+                                  handleAddToCart(e, size.size);
                                 }}
                                 key={size.size}
                                 className={`${

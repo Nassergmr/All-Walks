@@ -62,7 +62,7 @@ const Stripe: React.FC<StripeProps> = ({ totalAmount }) => {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment-success?amount=${totalAmount}`,
+        return_url: `${process.env.BASE_URL}/payment-success?amount=${totalAmount}`,
       },
     });
 

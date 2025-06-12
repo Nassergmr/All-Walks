@@ -15,11 +15,10 @@ import { allowedKidsBrandsConstant } from "@/components/constants/constants";
 
 // Shadcn Ui
 import { Loader2 } from "lucide-react";
+import { Product } from "@/types/types";
 
 const KidsProducts: React.FC = () => {
-  const [kidsProducts, setKidsProducts] = useState<
-    { id: number; min_price: number; [key: string]: unknown }[]
-  >([]);
+  const [kidsProducts, setKidsProducts] = useState<Product[]>([]);
   const [brands, setBrands] = useState<{ brand: string }[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -197,13 +196,12 @@ const KidsProducts: React.FC = () => {
           >
             {uniqueProducts.map((e) => (
               <MainProductCard
-                id={String(e.id)}
-                gender={String(e.gender)}
+                id={e.id}
+                gender={e.gender}
                 key={e.id}
-                imageSrc={String(e.image)}
-                model={String(e.model)}
+                imageSrc={e.image}
+                model={e.model}
                 price={e.min_price}
-                // isAdded={isAdded}
                 link={`/product/${e.id}`}
               />
             ))}

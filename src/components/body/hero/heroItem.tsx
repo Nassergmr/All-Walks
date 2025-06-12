@@ -1,24 +1,40 @@
+"use client";
+
 import Image from "next/image";
 import ButtonMain from "@/components/elements/buttonMain";
+import { useEffect, useState } from "react";
 
 interface HeroItemsProps {
+  imageSrcSm: string;
   imageSrc: string;
   heading: string;
   paragraph: string;
 }
 
 const HeroItem: React.FC<HeroItemsProps> = ({
+  imageSrcSm,
   imageSrc,
   heading,
   paragraph,
 }) => {
+  const [isSmall, setIsSmall] = useState(false);
+
+  useEffect(() => {
+    const width = window.innerWidth;
+    if (width < 640) {
+      setIsSmall(true);
+    } else {
+      setIsSmall(false);
+    }
+  }, []);
+
   return (
     <div
       id="hero_item_1"
       className="w-full h-[100dvh] sm:h-[70vh] lg:h-[100vh] relative"
     >
       <Image
-        src={imageSrc}
+        src={isSmall ? imageSrcSm : imageSrc}
         alt="Hero Banner"
         fill
         className="object-cover object-center"

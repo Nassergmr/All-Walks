@@ -35,7 +35,9 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
   const [productInfo, setProductInfo] = useState<Product>({} as Product);
   const [index, setIndex] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+  const [selectedSize, setSelectedSize] = useState<number | string | null>(
+    null
+  );
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const isAdded = useSelector((state: RootState) =>
@@ -45,6 +47,7 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
   const dummySizes = dummySizesConstant;
   const dispatch = useDispatch();
 
+  // Fetch Product Data
   useEffect(() => {
     const fetchProduct = async () => {
       const { product } = await getSingleProduct(id);
@@ -53,6 +56,7 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
     fetchProduct();
   }, [id, selectedSize]);
 
+  // Load The Gallery Images
   useEffect(() => {
     if ((productInfo?.gallery_360 ?? []).length > 0) {
       productInfo.gallery_360?.forEach((src) => {
@@ -96,6 +100,7 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
             id="image_container"
             className="relative border-1 py-8 rounded-md border-solid border-gray-200"
           >
+            {/* Gallery If Available */}
             {productInfo.gallery_360?.length !== 0 ? (
               <div
                 id="gallery"
@@ -113,17 +118,20 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
                     onLoad={() => setIsLoaded(true)}
                   />
                 )}
-
-                <Slider
-                  className="cursor-pointer bottom-[-20px] absolute left-[50%] translate-x-[-50%] w-[70%] sm:w-[50%]"
-                  min={0}
-                  max={(productInfo.gallery_360?.length ?? 0) - 1}
-                  step={1}
-                  value={[index]}
-                  onValueChange={handleSliderChange}
-                />
+                {productInfo.gallery_360 &&
+                  productInfo.gallery_360?.length !== 0 && (
+                    <Slider
+                      className="cursor-pointer bottom-[-20px] absolute left-[50%] translate-x-[-50%] w-[70%] sm:w-[50%]"
+                      min={0}
+                      max={(productInfo.gallery_360?.length ?? 0) - 1}
+                      step={1}
+                      value={[index]}
+                      onValueChange={handleSliderChange}
+                    />
+                  )}
               </div>
             ) : (
+              // Single Image If No Gallery
               <div
                 id="image"
                 className="sm:w-[400px] w-[300px] sm:h-[400px] h-[250px]  mx-auto"
@@ -210,6 +218,7 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
                   isHovered ? "shadow-xl" : ""
                 } py-3 gap-3 transition-shadow`}
               >
+                {/* Adults Sizes */}
                 {productInfo.gender !== "kids"
                   ? dummySizes.map((size) => (
                       <button
@@ -231,21 +240,22 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
                         {size.size}
                       </button>
                     ))
-                  : dummySizesKidsConstant.map((size) => (
+                  : // Kids Sizes
+                    dummySizesKidsConstant.map((size) => (
                       <button
                         id={`${size.available ? "" : "unavailable"}`}
                         disabled={size.available === false}
-                        onClick={() => setSelectedSize(Number(size.size))}
+                        onClick={() => setSelectedSize(size.size)}
                         title={`${
                           size.available
                             ? ""
                             : "Unavailable – Please choose another size"
                         }`}
                         className={`${
-                          Number(size.size) === selectedSize
+                          size.size === selectedSize
                             ? "bg-black text-white pointer-events-none focus:bg-black"
                             : ""
-                        } overflow-hidden relative  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out  h-[45px]  sm:h-[55px] w-full flex items-center justify-center border-1 border-black`}
+                        } overflow-hidden relative  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px]  sm:h-[55px] w-full flex items-center justify-center border-1 border-black`}
                         key={size.size}
                       >
                         {size.size}
@@ -256,6 +266,7 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
 
             <hr />
 
+            {/* Add To Cart / Favorites Buttons */}
             <div
               id="buttons_container"
               className="flex justify-between items-center"

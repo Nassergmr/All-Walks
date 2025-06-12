@@ -23,21 +23,25 @@ const Hero: React.FC = () => {
     >
       <Slider {...settings}>
         <HeroItem
+          imageSrcSm="/images/banners_small_screen/pexels-bemistermister-3490360.jpg"
           imageSrc="/images/banners/pexels-pluyar-786003.jpg"
           heading="Slip Into Simplicity"
           paragraph="The extra-durable Utility Collection is up for everything."
         />
         <HeroItem
+          imageSrcSm="/images/banners_small_screen/pexels-chuck-3261069.jpg"
           imageSrc="/images/banners/pexels-alican-helik-362148343-17849532-min.jpg"
           heading="Style That Moves With You"
           paragraph="Engineered for performance. Designed for every day."
         />
         <HeroItem
+          imageSrcSm="/images/banners_small_screen/pexels-kowalievska-1040427.jpg"
           imageSrc="/images/banners/pexels-photosbycollis-3185424.jpg"
           heading="Less Noise, More Sole"
           paragraph="Minimalist design meets maximum versatility.."
         />
         <HeroItem
+          imageSrcSm="/images/banners_small_screen/pexels-craytive-1476209.jpg"
           imageSrc="/images/banners/pexels-mart-production-8121750.jpg"
           heading="Reimagine Your Walk"
           paragraph="Crafted with purpose. Styled for wherever you go."

@@ -5,7 +5,7 @@ export type Product = {
   image: string;
   model: string;
   min_price: number;
-  size: number;
+  size: number | string;
   brand: string;
   max_price: number;
   title: string;
@@ -15,7 +15,7 @@ export type Product = {
   gallery_360: string[] | null;
 };
 export interface CartItem extends Product {
-  size: number;
+  size: number | string;
   quantity: number;
   min_price: number;
 }

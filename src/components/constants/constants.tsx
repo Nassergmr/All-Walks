@@ -32,26 +32,26 @@ export const allowedKidsBrandsConstant = [
 ];
 
 export const dummySizesConstant = [
-  { size: " 4", available: true },
-  { size: " 4.5", available: false },
-  { size: " 5", available: true },
-  { size: " 5.5", available: true },
-  { size: " 6", available: true },
-  { size: " 6.5", available: false },
-  { size: " 7", available: true },
-  { size: " 7.5", available: false },
-  { size: " 8", available: true },
-  { size: " 8.5", available: true },
-  { size: " 9", available: true },
-  { size: " 9.5", available: false },
-  { size: " 10", available: true },
-  { size: " 10.5", available: false },
-  { size: " 11", available: true },
-  { size: " 11.5", available: false },
-  { size: " 12", available: true },
-  { size: " 12.5", available: false },
-  { size: " 13", available: true },
-  { size: " 13.5", available: false },
+  { size: "4", available: true },
+  { size: "4.5", available: false },
+  { size: "5", available: true },
+  { size: "5.5", available: true },
+  { size: "6", available: true },
+  { size: "6.5", available: false },
+  { size: "7", available: true },
+  { size: "7.5", available: false },
+  { size: "8", available: true },
+  { size: "8.5", available: true },
+  { size: "9", available: true },
+  { size: "9.5", available: false },
+  { size: "10", available: true },
+  { size: "10.5", available: false },
+  { size: "11", available: true },
+  { size: "11.5", available: false },
+  { size: "12", available: true },
+  { size: "12.5", available: false },
+  { size: "13", available: true },
+  { size: "13.5", available: false },
 ];
 
 export const dummySizesKidsConstant = [
@@ -66,7 +66,6 @@ export const dummySizesKidsConstant = [
   { size: "6Y", available: true },
   { size: "7Y", available: true },
 ];
-
 export const brandsConstant = [
   {
     name: "Adidas",

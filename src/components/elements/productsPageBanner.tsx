@@ -3,16 +3,24 @@
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import * as React from "react";
+import { useEffect, useState } from "react";
 
 interface banner {
   imgSrc: string;
+  imgSrcSm: string;
   title: string;
   paragraph: string;
 }
 
-const ProductsPageBanner: React.FC<banner> = ({ imgSrc, title, paragraph }) => {
+const ProductsPageBanner: React.FC<banner> = ({
+  imgSrc,
+  title,
+  paragraph,
+  imgSrcSm,
+}) => {
   const containerRef = React.useRef(null);
   const isInView = useInView(containerRef, { once: true });
+  const [isSmall, setIsSmall] = useState(false);
 
   const variants = {
     hidden: { opacity: 0, y: 20 },
@@ -26,13 +34,21 @@ const ProductsPageBanner: React.FC<banner> = ({ imgSrc, title, paragraph }) => {
     }),
   };
 
+  useEffect(() => {
+    const width = window.innerWidth;
+    if (width < 640) {
+      setIsSmall(true);
+    } else {
+      setIsSmall(false);
+    }
+  }, []);
+
   const splitedTitle = title.split(" ");
 
   return (
     <div className="w-full h-[100dvh] sm:h-[60vh] relative ">
-      {/* sm:block hidden */}
       <Image
-        src={imgSrc}
+        src={isSmall ? imgSrcSm : imgSrc}
         alt="Hero Banner"
         fill
         className="object-cover object-bottom"

@@ -39,7 +39,7 @@ export default {
   ],
 
   session: {
-    strategy: "jwt", // Important for Credentials
+    strategy: "jwt",
   },
 
   callbacks: {
@@ -63,7 +63,7 @@ export default {
   },
 
   pages: {
-    signIn: "/sign-in", // optional but helpful
-    error: "/sign-in", // redirect errors here
+    signIn: "/sign-in",
+    error: "/sign-in",
   },
 } satisfies NextAuthConfig;

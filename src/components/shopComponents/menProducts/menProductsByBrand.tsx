@@ -277,7 +277,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
                 key={e.id}
                 imageSrc={e.image}
                 model={e.model}
-                price={e.min_price ?? 0}
+                price={e.min_price}
                 link={`/product/${e.id}`}
               />
             ))}

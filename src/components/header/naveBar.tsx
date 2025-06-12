@@ -177,7 +177,6 @@ const Navebar: React.FC = () => {
                           className={`bg-[#6457FD] text-white text-xs absolute size-full rounded-full flex items-center justify-center  font-bold`}
                         >
                           <span className="text-[14px]">
-                            {" "}
                             {session?.user?.name?.charAt(0).toUpperCase()}
                           </span>
                         </div>
