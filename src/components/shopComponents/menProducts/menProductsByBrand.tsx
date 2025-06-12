@@ -35,6 +35,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isNextPageNull, setIsNextPageNull] = useState(false);
 
   const scrollTo = useRef<HTMLDivElement>(null);
   const isFetchingRef = useRef(false);
@@ -73,10 +74,24 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
       const { products } = await getMenProductsByBrand(brand, page);
 
       const filteredProducts = products.filter(
-        (item: Product) => item.min_price !== null && item.min_price !== 0
+        (item: { min_price: number | null }) =>
+          item.min_price !== null && item.min_price !== 0
       );
-
       setMenProducts((prev) => [...prev, ...filteredProducts]);
+
+      // Handle The Case Where The Next Page Could Not Have Any Products
+      const nextPageResponse = await getMenProductsByBrand(
+        brand,
+        currentPage + 1
+      );
+      if (
+        !nextPageResponse.products ||
+        nextPageResponse.products.length === 0 ||
+        nextPageResponse === null
+      ) {
+        setIsNextPageNull(true);
+      }
+
       setLoading(false);
       isFetchingRef.current = false;
     } catch {
@@ -98,11 +113,12 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
       const bottomPosition = document.documentElement.offsetHeight;
       const scrollPosition = window.innerHeight + window.scrollY;
       const width = window.innerWidth;
-      const isSmallScreens = width > 640 ? 1200 : 2500;
+      const isSmallScreens = width > 640 ? 1800 : 2500;
 
       if (
         scrollPosition >= bottomPosition - isSmallScreens &&
         currentPage < 5 &&
+        !isNextPageNull &&
         !isFetchingRef.current
       ) {
         isFetchingRef.current = true;
@@ -115,7 +131,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [currentPage]);
+  }, [currentPage, isNextPageNull]);
 
   const uniqueProducts = Array.from(
     new Map(menProducts.map((item) => [item.id, item])).values()
@@ -286,7 +302,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
           <div
             id="loader_container"
             className={`${
-              !loading ? "hidden" : "block"
+              !loading || isNextPageNull ? "hidden" : "block"
             } mx-auto h-[48px] mt-[4rem] flex items-center justify-center`}
           >
             <Loader2 className={`animate-spin`} />

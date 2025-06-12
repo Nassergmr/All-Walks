@@ -54,6 +54,8 @@ const MenProducts: React.FC = () => {
     isFetchingRef.current = false;
   };
 
+  console.log(menProducts);
+
   useEffect(() => {
     fetchProducts(currentPage);
   }, [currentPage]);

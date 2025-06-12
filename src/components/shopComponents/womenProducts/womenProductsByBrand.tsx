@@ -34,6 +34,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isNextPageNull, setIsNextPageNull] = useState(false);
 
   const scrollTo = useRef<HTMLDivElement>(null);
   const isFetchingRef = useRef(false);
@@ -59,10 +60,24 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
       const { products } = await getWomenProductsByBrand(brand, page);
 
       const filteredProducts = products.filter(
-        (item: Product) => item.min_price !== null && item.min_price !== 0
+        (item: { min_price: number | null }) =>
+          item.min_price !== null && item.min_price !== 0
       );
-
       setWomenProducts((prev) => [...prev, ...filteredProducts]);
+
+      // Handle The Case Where The Next Page Could Not Have Any Products
+      const nextPageResponse = await getWomenProductsByBrand(
+        brand,
+        currentPage + 1
+      );
+      if (
+        !nextPageResponse.products ||
+        nextPageResponse.products.length === 0 ||
+        nextPageResponse === null
+      ) {
+        setIsNextPageNull(true);
+      }
+
       setLoading(false);
       isFetchingRef.current = false;
     } catch {
@@ -97,11 +112,12 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
       const bottomPosition = document.documentElement.offsetHeight;
       const scrollPosition = window.innerHeight + window.scrollY;
       const width = window.innerWidth;
-      const isSmallScreens = width > 640 ? 1200 : 2500;
+      const isSmallScreens = width > 640 ? 1800 : 2500;
 
       if (
         scrollPosition >= bottomPosition - isSmallScreens &&
         currentPage < 5 &&
+        !isNextPageNull &&
         !isFetchingRef.current
       ) {
         isFetchingRef.current = true;
@@ -109,13 +125,12 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
       }
     };
 
-    // const elementRef = scrollRef.current;
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [currentPage]);
+  }, [currentPage, isNextPageNull]);
 
   const uniqueProducts = Array.from(
     new Map(WomenProducts.map((item) => [item.id, item])).values()
@@ -291,7 +306,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
           <div
             id="loader_container"
             className={`${
-              !loading ? "hidden" : "block"
+              !loading || isNextPageNull ? "hidden" : "block"
             } mx-auto h-[48px] mt-[4rem] flex items-center justify-center`}
           >
             <Loader2 className={`animate-spin`} />

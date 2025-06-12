@@ -27,6 +27,7 @@ const KidsProductsByBrands: React.FC<BrandProp> = ({ brand }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isNextPageNull, setIsNextPageNull] = useState(false);
 
   const scrollTo = useRef<HTMLDivElement>(null);
   const isFetchingRef = useRef(false);
@@ -54,8 +55,21 @@ const KidsProductsByBrands: React.FC<BrandProp> = ({ brand }) => {
         (item: { min_price: number | null }) =>
           item.min_price !== null && item.min_price !== 0
       );
-
       setKidsProducts((prev) => [...prev, ...filteredProducts]);
+
+      // Handle The Case Where The Next Page Could Not Have Any Products
+      const nextPageResponse = await getKidsProductsByBrand(
+        brand,
+        currentPage + 1
+      );
+      if (
+        !nextPageResponse.products ||
+        nextPageResponse.products.length === 0 ||
+        nextPageResponse === null
+      ) {
+        setIsNextPageNull(true);
+      }
+
       setLoading(false);
       isFetchingRef.current = false;
     } catch {
@@ -78,7 +92,7 @@ const KidsProductsByBrands: React.FC<BrandProp> = ({ brand }) => {
   }, []);
 
   useEffect(() => {
-    if (brand) {
+    if (brand && !isNextPageNull) {
       fetchProducts(currentPage, brand);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,11 +104,12 @@ const KidsProductsByBrands: React.FC<BrandProp> = ({ brand }) => {
       const bottomPosition = document.documentElement.offsetHeight;
       const scrollPosition = window.innerHeight + window.scrollY;
       const width = window.innerWidth;
-      const isSmallScreens = width > 640 ? 1200 : 2500;
+      const isSmallScreens = width > 640 ? 1800 : 2500;
 
       if (
         scrollPosition >= bottomPosition - isSmallScreens &&
-        currentPage < 5 &&
+        currentPage < 8 &&
+        !isNextPageNull &&
         !isFetchingRef.current
       ) {
         isFetchingRef.current = true;
@@ -106,7 +121,7 @@ const KidsProductsByBrands: React.FC<BrandProp> = ({ brand }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [currentPage]);
+  }, [isNextPageNull, currentPage]);
 
   const uniqueProducts = Array.from(
     new Map(kidsProducts.map((item) => [item.id, item])).values()
@@ -253,7 +268,7 @@ const KidsProductsByBrands: React.FC<BrandProp> = ({ brand }) => {
           <div
             id="loader_container"
             className={`${
-              !loading ? "hidden" : "block"
+              !loading || isNextPageNull ? "hidden" : "block"
             } mx-auto h-[48px] mt-[4rem] flex items-center justify-center`}
           >
             <Loader2 className={`animate-spin`} />

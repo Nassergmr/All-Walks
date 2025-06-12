@@ -27,6 +27,8 @@ export function ProviderComponent({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (route.includes("/sign")) {
       setIsAuthRoutes(true);
+    } else {
+      setIsAuthRoutes(false);
     }
   }, [route]);
 
