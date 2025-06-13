@@ -34,7 +34,7 @@ const PaymentSuccess = () => {
           <p> Have a great day! </p>
           <div className="py-10 text-center">
             <Link
-              href={`${process.env.BASE_URL}`}
+              href={`${process.env.NEXT_PUBLIC_BASE_URL}`}
               onClick={() => handleRemoveAllItems()}
             >
               <Button variant={"outline"} size={"lg"}>

@@ -146,6 +146,7 @@ html {
     width: 100%;
     max-width: 100%;
     overflow-x: clip;
+    position: relative;
   }
   @font-face {
     font-family: "Geograph";

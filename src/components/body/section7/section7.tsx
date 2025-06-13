@@ -36,7 +36,7 @@ const Section7: React.FC = () => {
   );
 
   return (
-    <div className=" sm:my-[4rem] my-[2rem] relative">
+    <div className="sm:my-[4rem] my-[2rem] relative">
       <motion.div
         ref={ref}
         style={{ x: xTranslation }}
@@ -45,7 +45,7 @@ const Section7: React.FC = () => {
         {brandsArray.map((item, index) => (
           <div
             key={index}
-            className=" bg-[#EBEBEB] sm:h-30 sm:w-40 w-30 h-20 relative rounded-md"
+            className=" bg-[#EBEBEB] sm:h-30 sm:w-50 w-40 h-24 relative rounded-md"
           >
             <Image src={item.href} fill alt="" className="object-contain p-3" />
           </div>

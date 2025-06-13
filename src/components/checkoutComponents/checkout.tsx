@@ -36,7 +36,7 @@ const Checkout: React.FC = () => {
   const getTotal = () => {
     let totalPrice = 0;
     cartItems.forEach((item) => {
-      totalPrice += item.min_price * item.quantity; // Assuming 'price' is the correct property
+      totalPrice += item.min_price * item.quantity;
     });
     setTotalAmount(totalPrice);
   };

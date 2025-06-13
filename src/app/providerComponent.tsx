@@ -17,28 +17,45 @@ const LottieLoader = dynamic(
     ssr: false,
   }
 );
-
 const persistor = persistStore(store);
 
 export function ProviderComponent({ children }: { children: React.ReactNode }) {
-  const [isAuthRoutes, setIsAuthRoutes] = useState(false);
+  const [isAuthCheckoutRoutes, setIsAuthCheckoutRoutes] = useState(false);
 
-  const route = usePathname();
+  const path = usePathname();
+
   useEffect(() => {
-    if (route.includes("/sign")) {
-      setIsAuthRoutes(true);
-    } else {
-      setIsAuthRoutes(false);
+    const excludedRoutes = ["sign", "checkout"];
+    const isExcluded = excludedRoutes.some((route) => path.includes(route));
+    setIsAuthCheckoutRoutes(isExcluded);
+
+    // https://www.tidio.com/
+    if (!isExcluded) {
+      if (!document.getElementById("tidio-script")) {
+        const script = document.createElement("script");
+        script.id = "tidio-script";
+        script.src = `//code.tidio.co/${process.env.NEXT_PUBLIC_TIDIO_SECRET_KEY}.js`;
+        script.async = true;
+        document.body.appendChild(script);
+      }
     }
-  }, [route]);
+  }, [path]);
 
-  // https://www.tidio.com/
+  // Hide The Tidio Widget On Auth And Checkout Pages
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = `//code.tidio.co/${process.env.NEXT_PUBLIC_TIDIO_SECRET_KEY}.js`;
-    script.async = true;
-    document.body.appendChild(script);
-  }, []);
+    const checkTidioAndToggle = () => {
+      if (window.tidioChatApi) {
+        if (isAuthCheckoutRoutes) {
+          window.tidioChatApi.hide();
+        } else {
+          window.tidioChatApi.show();
+        }
+      } else {
+        setTimeout(checkTidioAndToggle, 300);
+      }
+    };
+    checkTidioAndToggle();
+  }, [isAuthCheckoutRoutes]);
 
   return (
     <SessionProvider>
@@ -49,7 +66,7 @@ export function ProviderComponent({ children }: { children: React.ReactNode }) {
       </Provider>
       <ToastContainer
         position={"top-center"}
-        autoClose={isAuthRoutes ? 2500 : 800}
+        autoClose={isAuthCheckoutRoutes ? false : 500}
         hideProgressBar={false}
         newestOnTop={false}
         rtl={false}

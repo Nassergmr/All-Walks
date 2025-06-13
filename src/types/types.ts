@@ -1,3 +1,14 @@
+declare global {
+  interface Window {
+    tidioChatApi: {
+      show: () => void;
+      hide: () => void;
+      open: () => void;
+      close: () => void;
+    };
+  }
+}
+
 export type Product = {
   id: string;
   isAdded: boolean;

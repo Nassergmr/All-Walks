@@ -62,7 +62,7 @@ const Stripe: React.FC<StripeProps> = ({ totalAmount }) => {
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `${process.env.BASE_URL}/payment-success?amount=${totalAmount}`,
+        return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/payment-success?amount=${totalAmount}`,
       },
     });
 
@@ -116,6 +116,9 @@ const Stripe: React.FC<StripeProps> = ({ totalAmount }) => {
           </>
         )}
       </Button>
+      <p className="text-xs text-red-600 font-bold -mt-7 text-center">
+        This is a test environment — no real payment will be made.
+      </p>
     </form>
   );
 };
