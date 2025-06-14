@@ -258,16 +258,18 @@ const Checkout: React.FC = () => {
         {/* Bottom Section */}
         <div id="bottom_section">
           <div id="" className="px-5 sm:px-12">
-            <Elements
-              stripe={stripePromise}
-              options={{
-                mode: "payment",
-                amount: Math.round(totalAmount * 100),
-                currency: "usd",
-              }}
-            >
-              <Stripe totalAmount={totalAmount} />
-            </Elements>
+            {totalAmount >= 0.5 && (
+              <Elements
+                stripe={stripePromise}
+                options={{
+                  mode: "payment",
+                  amount: Math.round(totalAmount * 100),
+                  currency: "usd",
+                }}
+              >
+                <Stripe totalAmount={totalAmount} />
+              </Elements>
+            )}
           </div>
         </div>
       </div>

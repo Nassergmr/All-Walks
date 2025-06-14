@@ -16,7 +16,7 @@ import {
 
 // Components
 import { EmptyButton } from "@/components/elements/emptyButton";
-import Checkout from "./checkout";
+// import Checkout from "./checkout";
 import EmptyCart from "./emptyCart";
 
 // Redux
@@ -29,6 +29,7 @@ import {
   removeItem,
 } from "@/redux/features/cart/cartSlice";
 import { CartItem } from "@/types/types";
+import { CheckoutButton } from "./checkoutButton";
 
 interface DrawerComponentProps {
   openDrawer: boolean;
@@ -40,6 +41,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
   setOpenDrawer,
 }) => {
   const [cartProducts, setCartProducts] = useState<CartItem[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const dispatch = useDispatch();
   const cartQuantity = useSelector(
@@ -47,8 +49,25 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
   );
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
+  const formattedAmount = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(totalPrice);
+
   useEffect(() => {
     setCartProducts(cartItems);
+  }, [cartItems]);
+
+  useEffect(() => {
+    const getTotal = () => {
+      let total = 0;
+      cartItems.forEach((item) => {
+        total += item.min_price * item.quantity;
+      });
+      setTotalPrice(total);
+    };
+    getTotal();
   }, [cartItems]);
 
   const handleIncrementQuantity = (item: CartItem) => {
@@ -181,7 +200,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
                   {/* Center */}
                   <div
                     id="center"
-                    className="max-w-full pl-8 flex flex-col gap-2"
+                    className="max-w-full pl-5 flex flex-col gap-2"
                   >
                     <Link
                       onClick={() => setOpenDrawer(false)}
@@ -281,7 +300,37 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
         )}
 
         {/* Checkout */}
-        <Checkout setOpenDrawer={setOpenDrawer} />
+        <div
+          id="checkout"
+          className={`${
+            cartItems.length > 0 ? "block" : "hidden"
+          } px-5 mt-auto  pt-5 flex flex-col gap-3`}
+        >
+          <div id="total" className="flex justify-between">
+            <p className="font-bold">Total Cost</p>
+            <p> {formattedAmount}</p>
+          </div>
+          <Link href={"/checkout"} onClick={() => setOpenDrawer(false)}>
+            <CheckoutButton />
+          </Link>
+          <div
+            id="logos_container"
+            className="flex items-end mb-3 justify-center gap-5"
+          >
+            <Image
+              width={85}
+              height={85}
+              src={"/images/icons/amazon-pay-logo.svg"}
+              alt=""
+            />
+            <Image
+              width={85}
+              height={85}
+              src={"/images/icons/cash-app-logo.svg"}
+              alt=""
+            />
+          </div>
+        </div>
       </DrawerContent>
     </Drawer>
   );
