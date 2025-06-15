@@ -21,11 +21,10 @@ const persistor = persistStore(store);
 
 export function ProviderComponent({ children }: { children: React.ReactNode }) {
   const [isAuthCheckoutRoutes, setIsAuthCheckoutRoutes] = useState(false);
-
   const path = usePathname();
 
   useEffect(() => {
-    const excludedRoutes = ["sign", "checkout"];
+    const excludedRoutes = ["sign", "checkout", "success"];
     const isExcluded = excludedRoutes.some((route) => path.includes(route));
     setIsAuthCheckoutRoutes(isExcluded);
 
@@ -57,6 +56,7 @@ export function ProviderComponent({ children }: { children: React.ReactNode }) {
     checkTidioAndToggle();
   }, [isAuthCheckoutRoutes]);
 
+  // Session Provider And Redux Provider
   return (
     <SessionProvider>
       <Provider store={store}>
