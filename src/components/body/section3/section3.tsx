@@ -178,6 +178,7 @@ const Section3: React.FC = () => {
         <div id="products_container" className="grid grid-cols-3  gap-2">
           {nikeBrand.map((e) => (
             <MainProductCard
+              e={e}
               id={e.id}
               gender={e.gender}
               key={e.id}
@@ -195,6 +196,7 @@ const Section3: React.FC = () => {
         <div id="products_container" className="grid grid-cols-2 gap-2">
           {nikeBrandSliced.map((e) => (
             <MainProductCard
+              e={e}
               id={e.id}
               gender={e.gender}
               key={e.id}
@@ -212,6 +214,7 @@ const Section3: React.FC = () => {
         <Slider {...settings}>
           {nikeBrand.map((e) => (
             <MainProductCard
+              e={e}
               id={e.id}
               gender={e.gender}
               key={e.id}

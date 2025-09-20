@@ -69,6 +69,7 @@ border-[#D3D4D5] border-b-2 group w-1/2 "
       >
         {womenNewArrivals.map((e) => (
           <MainProductCard
+            e={e}
             id={e.id}
             gender={e.gender}
             key={e.id}

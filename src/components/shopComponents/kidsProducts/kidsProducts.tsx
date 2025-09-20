@@ -196,6 +196,7 @@ const KidsProducts: React.FC = () => {
           >
             {uniqueProducts.map((e) => (
               <MainProductCard
+                e={e}
                 id={e.id}
                 gender={e.gender}
                 key={e.id}

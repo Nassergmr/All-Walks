@@ -7,14 +7,8 @@ import { getJordanBrand } from "@/services/productServices";
 import MainProductCard from "@/components/elements/mainProductCard";
 import { useInView } from "react-intersection-observer";
 import Slider from "react-slick";
+import { Product } from "@/types/types";
 
-interface Product {
-  image: string;
-  model: string;
-  min_price: number;
-  id: string;
-  gender: string;
-}
 const Section3: React.FC = () => {
   const [jordanBrand, setJordanBrand] = useState<Product[]>([]);
   const [isInView, setIsInView] = useState(false);
@@ -184,6 +178,7 @@ const Section3: React.FC = () => {
         <div id="products_container" className="grid grid-cols-3  gap-2">
           {jordanBrand.map((e) => (
             <MainProductCard
+              e={e}
               id={e.id}
               gender={e.gender}
               key={e.id}
@@ -201,6 +196,7 @@ const Section3: React.FC = () => {
         <div id="products_container" className="grid grid-cols-2 gap-2">
           {jordanBrandSliced.map((e) => (
             <MainProductCard
+              e={e}
               id={e.id}
               gender={e.gender}
               key={e.id}
@@ -218,6 +214,7 @@ const Section3: React.FC = () => {
         <Slider {...settings}>
           {jordanBrand.map((e) => (
             <MainProductCard
+              e={e}
               id={e.id}
               gender={e.gender}
               key={e.id}

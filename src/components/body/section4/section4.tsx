@@ -4,14 +4,15 @@ import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import { getMoreProducts } from "@/services/productServices";
 import MainProductCard from "@/components/elements/mainProductCard";
+import { Product } from "@/types/types";
 
-interface Product {
-  id: string;
-  image: string;
-  model: string;
-  min_price: number;
-  gender: string;
-}
+// interface Product {
+//   id: string;
+//   image: string;
+//   model: string;
+//   min_price: number;
+//   gender: string;
+// }
 
 function SampleNextArrow({
   onClick,
@@ -151,6 +152,7 @@ const Section4: React.FC = () => {
         {moreProducts.map((e) => (
           <div className="md:px-1" key={e.id}>
             <MainProductCard
+              e={e}
               id={e.id}
               key={e.id}
               gender={e.gender}

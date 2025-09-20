@@ -62,6 +62,7 @@ const NewArrivalsMen: React.FC = () => {
       >
         {menNewArrivals.map((e) => (
           <MainProductCard
+            e={e}
             key={e.id}
             id={e.id}
             gender={e.gender}

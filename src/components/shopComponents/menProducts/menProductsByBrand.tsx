@@ -288,6 +288,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
           >
             {uniqueProducts.map((e) => (
               <MainProductCard
+                e={e}
                 id={e.id}
                 gender={e.gender}
                 key={e.id}
