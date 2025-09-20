@@ -25,7 +25,7 @@ const NewArrivalsMen: React.FC = () => {
         <div id="button_cont" className="border-b-2 w-1/2 border-black">
           <button disabled className=" w-full py-4">
             <div className=" mx-auto font-serif  sm:text-base text-xs   font-bold text-md tracking-wider">
-              MEN’s NEW ARRIVALS
+              MEN’S NEW ARRIVALS
             </div>
           </button>
         </div>
@@ -38,7 +38,7 @@ const NewArrivalsMen: React.FC = () => {
             className=" font-serif mx-auto sm:text-base text-xs transition duration-150 ease-in-out text-[#7f7f80] group-hover:text-black  font-bold text-md tracking-wider"
           >
             <button className=" cursor-default w-full py-4">
-              WOMEN’s NEW ARRIVALS
+              WOMEN’S NEW ARRIVALS
             </button>
           </Link>
         </div>

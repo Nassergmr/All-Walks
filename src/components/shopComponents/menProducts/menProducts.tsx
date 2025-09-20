@@ -106,7 +106,7 @@ const MenProducts: React.FC = () => {
         <div id="button_cont" className="border-b-2 w-1/2 border-black">
           <button disabled className=" w-full py-4">
             <div className=" mx-auto font-serif font-bold sm:text-base text-xs tracking-wider">
-              MEN’s SNEAKERS
+              MEN’S SNEAKERS
             </div>
           </button>
         </div>
@@ -119,7 +119,7 @@ const MenProducts: React.FC = () => {
             className=" font-serif mx-auto transition duration-150 ease-in-out text-[#7f7f80] group-hover:text-black  font-bold text-base tracking-wider"
           >
             <button className=" cursor-default sm:text-base text-xs w-full py-4">
-              WOMEN’s SNEAKERS
+              WOMEN’S SNEAKERS
             </button>
           </Link>
         </div>
@@ -221,6 +221,7 @@ const MenProducts: React.FC = () => {
           >
             {uniqueProducts.map((e) => (
               <MainProductCard
+                e={e}
                 id={e.id}
                 gender={e.gender}
                 key={e.id}

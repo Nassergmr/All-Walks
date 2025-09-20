@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -10,8 +10,16 @@ import { Skeleton } from "../ui/skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFavorites } from "@/redux/features/favorites/favoritesSlice";
 import { RootState } from "@/redux/store";
+import {
+  dummySizesConstant,
+  dummySizesKidsConstant,
+} from "../constants/constants";
+import { Product } from "@/types/types";
+import { addToCart } from "@/redux/features/cart/cartSlice";
+import { usePathname } from "next/navigation";
 
 interface CardItemsProps {
+  e: Product;
   imageSrc: string;
   model: string;
   price: number;
@@ -21,6 +29,7 @@ interface CardItemsProps {
 }
 
 const MainProductCard: React.FC<CardItemsProps> = ({
+  e,
   imageSrc,
   model,
   price,
@@ -29,12 +38,29 @@ const MainProductCard: React.FC<CardItemsProps> = ({
   gender,
 }) => {
   const [isLoaded, setisLoaded] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(false);
+  const [isArrivalsPath, setIsArrivalsPath] = useState(false);
+  const path = usePathname();
 
   const isAdded = useSelector((state: RootState) =>
     state.favorites.favoritesItems.some((item) => item.id === id)
   );
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      setIsHomePage(true);
+    }
+    if (path.includes("new-arrivals")) {
+      setIsArrivalsPath(true);
+    }
+  }, [path]);
+
+  const handleAddToCart = (product: Product, size: number | string) => {
+    toast.success("Added to cart");
+    dispatch(addToCart({ ...product, size }));
+  };
 
   const handleAddToFavorites = () => {
     if (!isAdded) {
@@ -65,12 +91,14 @@ const MainProductCard: React.FC<CardItemsProps> = ({
   return (
     <div
       id="product_card"
-      className="relative  w-full max-w-[350px] min-h-[320px] max-h-[355px] sm:min-h-[346px] sm:max-h-[350px] flex flex-col border border-gray-200 rounded-lg shadow-md bg-white overflow-hidden group"
+      className={`relative group ${
+        !isHomePage ? "hover:shadow-2xl" : ""
+      } w-full max-w-[350px] min-h-[320px] max-h-[355px] sm:min-h-[346px] sm:max-h-[350px] flex flex-col border border-gray-200 rounded-lg shadow-md bg-white`}
     >
       <button
         onClick={() => handleAddToFavorites()}
         id="heart"
-        className="absolute top-[10px] right-[10px] z-10"
+        className="absolute top-[10px] right-[10px] z-5"
       >
         <svg
           id={`${isAdded ? "" : "heart_animated"}`}
@@ -134,6 +162,53 @@ const MainProductCard: React.FC<CardItemsProps> = ({
             Shop Now
           </Link>
         </button>
+
+        {!isHomePage && (
+          <>
+            <div
+              id="sizes_section"
+              className={` w-full hidden bg-white pb-5 h-auto z-10 left-0 absolute shadow-xl top-[340px] md:group-hover:block px-5`}
+            >
+              <h3 className="font-bold block  py-3">Quick Add</h3>
+              <div
+                id="sizes_container"
+                className={`${
+                  isArrivalsPath ? "lg:grid-cols-5" : ""
+                } grid grid-cols-6 sm:grid-cols-5 md:grid-cols-4 gap-x-4 gap-y-3`}
+              >
+                {/* Adult Sizes */}
+                {gender !== "kids"
+                  ? dummySizesConstant.map((size) => (
+                      <button
+                        onClick={() => {
+                          handleAddToCart(e, Number(size.size));
+                        }}
+                        key={size.size}
+                        className={`${size.available ? "block" : "hidden"}
+                                  overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px] w-[45px] flex items-center justify-center border-1 border-black
+                                  `}
+                      >
+                        {size.size}
+                      </button>
+                    ))
+                  : // Kids Sizes
+                    dummySizesKidsConstant.map((size) => (
+                      <button
+                        onClick={() => {
+                          handleAddToCart(e, size.size);
+                        }}
+                        key={size.size}
+                        className={`${size.available ? "block" : "hidden"}
+                                  overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px] w-[45px] flex items-center justify-center border-1 border-black
+                                  `}
+                      >
+                        {size.size}
+                      </button>
+                    ))}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

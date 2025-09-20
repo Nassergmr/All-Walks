@@ -108,7 +108,7 @@ const KidsProducts: React.FC = () => {
         {/* Side Bar Medium & Large Screens */}
         <div
           id="side_bar_container"
-          className="sm:w-[40%] md:w-[30%] lg:[20%] container sm:block hidden relative"
+          className="sm:w-[40%] md:w-[30%] lg:w-[20%] container sm:block hidden relative"
         >
           <div
             id="side_bar"

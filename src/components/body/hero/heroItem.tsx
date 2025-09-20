@@ -33,13 +33,26 @@ const HeroItem: React.FC<HeroItemsProps> = ({
       id="hero_item_1"
       className="w-full h-[100dvh] sm:h-[70vh] lg:h-[100vh] relative"
     >
-      <Image
-        src={isSmall ? imageSrcSm : imageSrc}
-        alt="Hero Banner"
-        fill
-        className="object-cover object-center"
-        priority
-      />
+      {isSmall && (
+        <Image
+          src={imageSrcSm}
+          alt="Hero Banner"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+      )}
+
+      {!isSmall && (
+        <Image
+          src={imageSrc}
+          alt="Hero Banner"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+      )}
+
       <div id="overlay" className="absolute inset-0  bg-black/20">
         <div
           id="content"

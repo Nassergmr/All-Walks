@@ -155,7 +155,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
         <div id="button_cont" className="border-b-2 w-1/2 border-black">
           <button disabled className=" w-full py-4">
             <div className=" mx-auto sm:text-base text-xs font-serif font-bold text-md tracking-wider">
-              MEN’s SNEAKERS
+              MEN’S SNEAKERS
             </div>
           </button>
         </div>
@@ -168,7 +168,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
             className=" font-serif mx-auto transition duration-150 ease-in-out text-[#7f7f80] group-hover:text-black  font-bold text-md tracking-wider"
           >
             <button className=" sm:text-base text-xs cursor-default w-full py-4">
-              WOMEN’s SNEAKERS
+              WOMEN’S SNEAKERS
             </button>
           </Link>
         </div>
@@ -182,7 +182,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
         {/* Side Bar Medium & Large Screens */}
         <div
           id="side_bar_container"
-          className="sm:w-[40%] md:w-[30%] lg:[20%] container sm:block hidden relative"
+          className="sm:w-[40%] md:w-[30%] lg:w-[20%] container sm:block hidden relative"
         >
           <div
             id="side_bar"
@@ -260,7 +260,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
                 <div key={brandItem.brand} className="px-1">
                   <Link
                     href={`/products-men/${brandItem.brand}`}
-                    className={`${
+                    className={`w-full ${
                       brandItem.brand === decodedBrand ? "font-bold" : ""
                     }`}
                   >

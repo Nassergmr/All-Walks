@@ -45,7 +45,7 @@ border-[#D3D4D5] border-b-2 group w-1/2 "
               // href=""
               className=" font-serif mx-auto sm:text-base text-xs  font-bold text-md tracking-wider"
             >
-              WOMEN’s NEW ARRIVALS
+              WOMEN’S NEW ARRIVALS
             </div>
           </button>
         </div>

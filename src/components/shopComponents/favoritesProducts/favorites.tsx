@@ -127,7 +127,7 @@ const Favorites: React.FC = () => {
                 <div id="card_container" key={e.id} className="">
                   <div
                     id="product_card"
-                    className="relative min-h-[350px]  group hover:shadow-2xl w-[auto]  flex flex-col border border-gray-200 rounded-lg shadow-md bg-white group"
+                    className="relative min-h-[350px]  group hover:shadow-2xl  flex flex-col border border-gray-200 rounded-lg shadow-md bg-white group"
                   >
                     <button
                       onClick={() => handleRemoveFromFavorites(e.id)}
@@ -223,7 +223,8 @@ const Favorites: React.FC = () => {
                       id="sizes_section"
                       className={`${
                         visibleProductId === e.id ? "block" : "hidden"
-                      } w-full md:hidden bg-white pb-5 h-auto z-10 left-0 absolute shadow-xl top-[370px] md:top-[340px] md:group-hover:block px-5`}
+                      }
+                       w-full md:hidden bg-white pb-5 h-auto z-10 left-0 absolute shadow-xl top-[370px] md:top-[340px] md:group-hover:block px-5`}
                     >
                       <h3 className="font-bold md:block hidden py-3">
                         Quick Add

@@ -163,7 +163,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
                 mx-auto font-serif font-bold text-md tracking-wider"
           >
             <button className=" w-full   sm:text-base text-xs py-4">
-              MEN’s SNEAKERS
+              MEN’S SNEAKERS
             </button>
           </Link>
         </div>
@@ -173,7 +173,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
         >
           <button disabled className=" cursor-default w-full py-4">
             <div className=" font-serif  sm:text-base text-xs mx-auto font-bold text-md tracking-wider">
-              WOMEN’s SNEAKERS
+              WOMEN’S SNEAKERS
             </div>
           </button>
         </div>
@@ -187,7 +187,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
         {/* Side Bar Medium & Large Screens */}
         <div
           id="side_bar_container"
-          className="sm:w-[40%] md:w-[30%] lg:[20%] container sm:block hidden relative"
+          className="sm:w-[40%] md:w-[30%] lg:w-[20%] container sm:block hidden relative"
         >
           <div
             id="side_bar"
