@@ -10,7 +10,6 @@ import Link from "next/link";
 // Components
 import MainProductCard from "@/components/elements/mainProductCard";
 import {
-  getAllBrands,
   getMenProductsByBrand,
 } from "@/services/productServices";
 import ScrollToTop from "@/components/elements/scrollToTop";
@@ -31,7 +30,6 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
   brand: string;
 }) => {
   const [menProducts, setMenProducts] = useState<Product[]>([]);
-  const [brands, setBrands] = useState<{ brand: string }[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -39,20 +37,6 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
 
   const scrollTo = useRef<HTMLDivElement>(null);
   const isFetchingRef = useRef(false);
-
-  // Fetch Brands
-  useEffect(() => {
-    const fetchAllBrands = async () => {
-      const brands = await getAllBrands();
-      const allowedBrands = allowedBrandsConstant;
-
-      const filteredBrands = brands.filter((item: { brand: string }) =>
-        allowedBrands.includes(item.brand)
-      );
-      setBrands(filteredBrands);
-    };
-    fetchAllBrands();
-  }, []);
 
   // Auto Scroll To Element On Page Load
   useEffect(() => {
@@ -199,24 +183,24 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
               id="side_bar_links"
               className="flex py-3 flex-start flex-col gap-2"
             >
-              {brands.map((brandItem) => (
+              {allowedBrandsConstant.map((brandItem) => (
                 <Link
                   className="w-fit"
-                  key={brandItem.brand}
-                  href={`/products-men/${brandItem.brand}`}
+                  key={brandItem}
+                  href={`/products-men/${brandItem}`}
                 >
                   <span className="">
                     <button
-                      disabled={brandItem.brand === decodedBrand}
+                      disabled={brandItem === decodedBrand}
                       className={`
                         
                       ${
-                        brandItem.brand === decodedBrand
+                        brandItem === decodedBrand
                           ? "selected_brand_item"
                           : "brand_item"
                       }   w-fit text-md relative cursor-pointer`}
                     >
-                      {brandItem.brand}
+                      {brandItem}
                     </button>
                   </span>
                 </Link>
@@ -256,19 +240,19 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
                 },
               ]}
             >
-              {brands.map((brandItem) => (
-                <div key={brandItem.brand} className="px-1">
+              {allowedBrandsConstant.map((brandItem) => (
+                <div key={brandItem} className="px-1">
                   <Link
-                    href={`/products-men/${brandItem.brand}`}
+                    href={`/products-men/${brandItem}`}
                     className={`w-full ${
-                      brandItem.brand === decodedBrand ? "font-bold" : ""
+                      brandItem === decodedBrand ? "font-bold" : ""
                     }`}
                   >
                     <button
-                      disabled={brandItem.brand === decodedBrand}
+                      disabled={brandItem === decodedBrand}
                       className="py-2 w-full px-3 text-sm sm:text-md text-center bg-gray-100 hover:bg-gray-200 rounded-full cursor-pointer whitespace-nowrap overflow-visible"
                     >
-                      {brandItem.brand}
+                      {brandItem}
                     </button>
                   </Link>
                 </div>

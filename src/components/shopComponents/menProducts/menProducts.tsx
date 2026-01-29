@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { getAllBrands, getAllMenProducts } from "@/services/productServices";
+import { getAllMenProducts } from "@/services/productServices";
 import { Product } from "@/types/types";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -19,25 +19,11 @@ import Slider from "react-slick";
 
 const MenProducts: React.FC = () => {
   const [menProducts, setMenProducts] = useState<Product[]>([]);
-  const [brands, setBrands] = useState<{ brand: string }[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const scrollTo = useRef<HTMLDivElement>(null);
   const isFetchingRef = useRef(false);
-
-  // Fetch Brands
-  useEffect(() => {
-    const fetchAllBrands = async () => {
-      const brands = await getAllBrands();
-      const allowedBrands = allowedBrandsConstant;
-      const filteredBrands = brands.filter((item: { brand: string }) =>
-        allowedBrands.includes(item.brand)
-      );
-      setBrands(filteredBrands);
-    };
-    fetchAllBrands();
-  }, []);
 
   // Fetch Products
   const fetchProducts = async (page: number) => {
@@ -46,7 +32,7 @@ const MenProducts: React.FC = () => {
     const { products } = await getAllMenProducts(page);
 
     const filteredProducts = products.filter(
-      (item: Product) => item.min_price !== null && item.min_price !== 0
+      (item: Product) => item.min_price !== null && item.min_price !== 0,
     );
 
     setMenProducts((prev) => [...prev, ...filteredProducts]);
@@ -87,7 +73,7 @@ const MenProducts: React.FC = () => {
 
   // Exclude Products With Same Ids
   const uniqueProducts = Array.from(
-    new Map(menProducts.map((item) => [item.id, item])).values()
+    new Map(menProducts.map((item) => [item.id, item])).values(),
   );
 
   const settings = {
@@ -149,14 +135,14 @@ const MenProducts: React.FC = () => {
               id="side_bar_links"
               className="flex py-3  flex-start flex-col gap-2"
             >
-              {brands.map((brandItem) => (
+              {allowedBrandsConstant.map((brandItem) => (
                 <Link
                   className="w-fit"
-                  key={brandItem.brand}
-                  href={`/products-men/${brandItem.brand}`}
+                  key={brandItem}
+                  href={`/products-men/${brandItem}`}
                 >
                   <p className="brand_item text-md relative cursor-pointer">
-                    {brandItem.brand}
+                    {brandItem}
                   </p>
                 </Link>
               ))}
@@ -194,14 +180,11 @@ const MenProducts: React.FC = () => {
                 },
               ]}
             >
-              {brands.map((brandItem) => (
-                <div key={brandItem.brand} className="px-1">
-                  <Link
-                    href={`/products-men/${brandItem.brand}`}
-                    className="block"
-                  >
+              {allowedBrandsConstant.map((brandItem) => (
+                <div key={brandItem} className="px-1">
+                  <Link href={`/products-men/${brandItem}`} className="block">
                     <button className="py-2 w-full px-3 text-sm sm:text-md text-center bg-gray-100 hover:bg-gray-200 rounded-full cursor-pointer whitespace-nowrap overflow-visible">
-                      {brandItem.brand}
+                      {brandItem}
                     </button>
                   </Link>
                 </div>

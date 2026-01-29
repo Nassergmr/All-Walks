@@ -1,5 +1,5 @@
 "use client";
-import { getAllWomenProducts, getAllBrands } from "@/services/productServices";
+import { getAllWomenProducts } from "@/services/productServices";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Slider from "react-slick";
@@ -18,25 +18,11 @@ import { Product } from "@/types/types";
 
 const WomenProducts: React.FC = () => {
   const [womenProducts, setWomenProducts] = useState<Product[]>([]);
-  const [brands, setBrands] = useState<{ brand: string }[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   const scrollTo = useRef<HTMLDivElement>(null);
   const isFetchingRef = useRef(false);
-
-  // Fetch Brands
-  useEffect(() => {
-    const fetchAllBrands = async () => {
-      const brands = await getAllBrands();
-      const allowedBrands = allowedBrandsConstant;
-      const filteredBrands = brands.filter((item: { brand: string }) =>
-        allowedBrands.includes(item.brand)
-      );
-      setBrands(filteredBrands);
-    };
-    fetchAllBrands();
-  }, []);
 
   useEffect(() => {
     fetchedProducts(currentPage);
@@ -149,14 +135,14 @@ const WomenProducts: React.FC = () => {
               id="side_bar_links"
               className="flex py-3  flex-start flex-col gap-2"
             >
-              {brands.map((brandItem) => (
+              {allowedBrandsConstant.map((brandItem) => (
                 <Link
                   className="w-fit"
-                  key={brandItem.brand}
-                  href={`/products-women/${brandItem.brand}`}
+                  key={brandItem}
+                  href={`/products-women/${brandItem}`}
                 >
                   <p className="brand_item text-md relative cursor-pointer">
-                    {brandItem.brand}
+                    {brandItem}
                   </p>
                 </Link>
               ))}
@@ -194,14 +180,14 @@ const WomenProducts: React.FC = () => {
                 },
               ]}
             >
-              {brands.map((brandItem) => (
-                <div key={brandItem.brand} className="px-1">
+              {allowedBrandsConstant.map((brandItem) => (
+                <div key={brandItem} className="px-1">
                   <Link
-                    href={`/products-women/${brandItem.brand}`}
+                    href={`/products-women/${brandItem}`}
                     className="block"
                   >
                     <button className="py-2 w-full px-3 text-sm sm:text-md text-center bg-gray-100 hover:bg-gray-200 rounded-full cursor-pointer whitespace-nowrap overflow-visible">
-                      {brandItem.brand}
+                      {brandItem}
                     </button>
                   </Link>
                 </div>
