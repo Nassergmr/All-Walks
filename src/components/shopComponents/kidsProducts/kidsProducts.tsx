@@ -33,7 +33,7 @@ const KidsProducts: React.FC = () => {
 
     const filteredProducts = products.filter(
       (item: { min_price: number | null }) =>
-        item.min_price !== null && item.min_price !== 0
+        item.min_price !== null && item.min_price !== 0,
     );
 
     setKidsProducts((prev) => [...prev, ...filteredProducts]);
@@ -73,7 +73,7 @@ const KidsProducts: React.FC = () => {
 
   // Exclude Products With Same Ids
   const uniqueProducts = Array.from(
-    new Map(kidsProducts.map((item) => [item.id, item])).values()
+    new Map(kidsProducts.map((item) => [item.id, item])).values(),
   );
 
   const settings = {
@@ -158,10 +158,7 @@ const KidsProducts: React.FC = () => {
             >
               {allowedKidsBrandsConstant.map((brandItem) => (
                 <div key={brandItem} className="px-1">
-                  <Link
-                    href={`/products-kids/${brandItem}`}
-                    className="block"
-                  >
+                  <Link href={`/products-kids/${brandItem}`} className="block">
                     <button className="py-2 w-full px-3 text-sm sm:text-md text-center bg-gray-100 hover:bg-gray-200 rounded-full cursor-pointer whitespace-nowrap overflow-visible">
                       {brandItem}
                     </button>
@@ -179,7 +176,7 @@ const KidsProducts: React.FC = () => {
         >
           <div
             id="products_container"
-            className="grid lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 gap-1 sm:gap-3"
+            className="grid lg:grid-cols-3 xl:grid-cols-4 custom grid-cols-2  gap-y-4   gap-x-1 md:gap-3"
           >
             {uniqueProducts.map((e) => (
               <MainProductCard

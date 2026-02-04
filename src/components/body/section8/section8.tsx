@@ -1,6 +1,14 @@
+"use client";
+
+import { usePathname } from "next/navigation";
+
 const Section8: React.FC = () => {
+  const path = usePathname();
+
   return (
-    <div className="container sm:my-[4rem] my-[2rem] ">
+    <div
+      className={`${path.includes("/product/") ? "bg-white" : "bg-[#ede9e2]"} container sm:py-[4rem] py-[2rem] `}
+    >
       <h1 className="sm:text-4xl text-2xl sm:mb-[2rem] mb-[1rem] font-bold">
         The Allwalks Approach
       </h1>

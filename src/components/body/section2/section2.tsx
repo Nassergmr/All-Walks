@@ -13,7 +13,7 @@ const Section2: React.FC = () => {
         id="content"
         className="absolute inset-0 w-full justify-center gap-8 items-center flex flex-col"
       >
-        <h1 className="text-white text-2xl text-center uppercase ">
+        <h1 className="text-white px-1 sm:px-0 text-2xl text-center uppercase ">
           Designed By Nature, Perfected By Us
         </h1>
         <p className="text-white md:w-[50%] w-[90%] text-center text-md">

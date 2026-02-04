@@ -9,9 +9,7 @@ import Link from "next/link";
 
 // Components
 import MainProductCard from "@/components/elements/mainProductCard";
-import {
-  getMenProductsByBrand,
-} from "@/services/productServices";
+import { getMenProductsByBrand } from "@/services/productServices";
 import ScrollToTop from "@/components/elements/scrollToTop";
 import BreadcrumbNav from "@/components/elements/breadCrumbNave";
 import { allowedBrandsConstant } from "@/components/constants/constants";
@@ -59,14 +57,14 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
 
       const filteredProducts = products.filter(
         (item: { min_price: number | null }) =>
-          item.min_price !== null && item.min_price !== 0
+          item.min_price !== null && item.min_price !== 0,
       );
       setMenProducts((prev) => [...prev, ...filteredProducts]);
 
       // Handle The Case Where The Next Page Could Not Have Any Products
       const nextPageResponse = await getMenProductsByBrand(
         brand,
-        currentPage + 1
+        currentPage + 1,
       );
       if (
         !nextPageResponse.products ||
@@ -118,7 +116,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
   }, [currentPage, isNextPageNull]);
 
   const uniqueProducts = Array.from(
-    new Map(menProducts.map((item) => [item.id, item])).values()
+    new Map(menProducts.map((item) => [item.id, item])).values(),
   );
 
   // Decode the URL-encoded brand name (e.g., "New%20Balance" → "New Balance")
@@ -268,7 +266,7 @@ const MenProductsByBrand: React.FC<MenProductsByBrandProps> = ({
         >
           <div
             id="products_container"
-            className="grid lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 mx-auto sm:gap-3 gap-1"
+            className="grid lg:grid-cols-3 xl:grid-cols-4 custom grid-cols-2  gap-y-4   gap-x-1 md:gap-3"
           >
             {uniqueProducts.map((e) => (
               <MainProductCard

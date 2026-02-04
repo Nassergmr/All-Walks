@@ -140,7 +140,7 @@ html {
   body {
     @apply bg-background text-foreground;
     font-family: "Geograph", sans-serif;
-    background-color: white;
+    background-color: #ede9e2;
     color: #212121;
     position: relative;
     width: 100%;
@@ -233,7 +233,7 @@ html {
 }
 .nave_links {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 2px;
   display: inline-block;
   position: relative;
@@ -251,6 +251,27 @@ html {
   width: 100%;
   bottom: 2px;
 }
+
+.hot_picks {
+  letter-spacing: 1px;
+  position: relative;
+  display: block;
+}
+.hot_picks::after {
+  content: "";
+  display: block;
+  height: 1px;
+  position: absolute;
+  background: #000;
+  width: 100%;
+  bottom: 2px;
+}
+
+/* .hot_picks:hover::after {
+  width: 100%;
+  bottom: 2px;
+} */
+
 button {
   cursor: pointer;
 }
@@ -328,8 +349,8 @@ li {
 
 #plus_minus_button {
   position: relative;
-  width: 18px;
-  height: 18px;
+  width: 15px !important;
+  height: 15px !important;
   cursor: pointer;
 
   &.active {
@@ -362,4 +383,10 @@ li {
   &:after {
     transform: translatey(-50%) rotate(90deg);
   }
+}
+.slider-container {
+  user-select: none;
+}
+[data-cursor-exclude] {
+  cursor: pointer !important;
 }

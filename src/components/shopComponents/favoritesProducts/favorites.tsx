@@ -27,6 +27,7 @@ import {
 import { addToCart } from "@/redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 import { Product } from "@/types/types";
+import { usePathname } from "next/navigation";
 
 const Favorites: React.FC = () => {
   const [favoritesProducts, setFavoritesProducts] = useState<Product[]>([]);
@@ -36,7 +37,7 @@ const Favorites: React.FC = () => {
 
   const dispatch = useDispatch();
   const favoritesItems = useSelector(
-    (state: RootState) => state.favorites.favoritesItems
+    (state: RootState) => state.favorites.favoritesItems,
   );
 
   useEffect(() => {
@@ -65,7 +66,7 @@ const Favorites: React.FC = () => {
         created_at: 0,
         weekly_orders: 0,
         gallery_360: null,
-      })
+      }),
     );
   };
 
@@ -80,6 +81,24 @@ const Favorites: React.FC = () => {
   const handleIsClicked = (id: string) => {
     setIsClickedId((prev) => (prev === id ? null : id));
   };
+
+  const [isHomePage, setIsHomePage] = useState(false);
+  const [isArrivalsPath, setIsArrivalsPath] = useState(false);
+
+  const path = usePathname();
+
+  // const isAdded = useSelector((state: RootState) =>
+  //   state.favorites.favoritesItems.some((item) => item.id === id),
+  // );
+
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      setIsHomePage(true);
+    }
+    if (path.includes("new-arrivals")) {
+      setIsArrivalsPath(true);
+    }
+  }, [path]);
 
   return (
     <div
@@ -118,93 +137,147 @@ const Favorites: React.FC = () => {
               </div>
             </div>
 
-            {/* List Products */}
-            <div
-              id="products_container"
-              className=" grid lg:grid-cols-4  md:grid-cols-3 sm:grid-cols-2 grid-cols-1 justify-between gap-7"
-            >
+            <div className="grid lg:grid-cols-5 md:grid-cols-4 grid-cols-2 sm:grid-cols-3 gap-y-6 gap-x-3 sm:gap-3">
               {favoritesProducts.map((e) => (
-                <div id="card_container" key={e.id} className="">
-                  <div
-                    id="product_card"
-                    className="relative min-h-[350px]  group hover:shadow-2xl  flex flex-col border border-gray-200 rounded-lg shadow-md bg-white group"
+                <div
+                  key={e.id}
+                  id="product_card"
+                  className={`relative group ${
+                    !isHomePage
+                      ? "sm:hover:scale-110 sm:hover:shadow-3xl hover:shadow-none hover:scale-none"
+                      : " hover:scale-none sm:mx-none mx-auto"
+                  }  w-full max-w-[350px] min-h-[320px] max-h-[355px] md:hover:z-[20] transition-all duration-300 sm:min-h-[346px] sm:max-h-[350px] flex flex-col border border-gray-200 rounded-lg shadow-md bg-white`}
+                >
+                  <button
+                    onClick={() => handleRemoveFromFavorites(e.id)}
+                    id="close"
+                    className="absolute top-[10px] right-[10px] z-5"
                   >
-                    <button
-                      onClick={() => handleRemoveFromFavorites(e.id)}
-                      id="close"
-                      className="absolute top-[10px] right-[10px] z-5"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-6 hover:rotate-90 transition duration-400 ease-in-out"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="size-6 hover:rotate-90 transition duration-400 ease-in-out"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18 18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-
-                    <div
-                      id="img_container"
-                      className="relative bg-white rounded-t-lg m-auto w-[70%] min-h-[185px] overflow-hidden h-[60%]"
-                    >
-                      {!isLoaded && (
-                        <Skeleton className="w-[200px] mt-5 h-[200px] mx-auto " />
-                      )}
-                      <Image
-                        onLoad={() => setisLoaded(true)}
-                        src={e.image}
-                        className={`object-contain ${
-                          isLoaded ? "opacity-100" : "opacity-0"
-                        }`}
-                        fill
-                        alt=""
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18 18 6M6 6l12 12"
                       />
-                    </div>
+                    </svg>
+                  </button>
+                  <div
+                    id="img_container"
+                    className={`${isHomePage ? "h-[170px] w-[40%]" : ""} relative bg-white rounded-xl mx-auto w-[80%] h-1/2 sm:w-[70%] sm:min-h-[185px] overflow-hidden  sm:h-[60%]`}
+                  >
+                    {!isLoaded && (
+                      <Skeleton className="w-[150px] h-[150px] mx-auto mt-5" />
+                    )}
+                    <Image
+                      onLoad={() => setisLoaded(true)}
+                      src={e.image}
+                      className={`object-contain ${isLoaded ? "opacity-100" : "opacity-0"}`}
+                      fill
+                      alt=""
+                    />
+                  </div>
 
-                    <div id="content" className="h-[30%] px-5 pt-5">
-                      <div id="model_price" className="flex flex-col gap-3">
-                        <p className="text-md truncate">{e.model}</p>
-                        <p className="text-2xl font-bold">${e.min_price}</p>
+                  <div
+                    id="content"
+                    className="sm:h-[30%] h-auto px-5 sm:pt-5 pt-0"
+                  >
+                    <div id="model_price" className="flex flex-col gap-3">
+                      <p className="text-md truncate">{e.model}</p>
+                      <p className="sm:text-2xl text-xl font-bold">
+                        ${e.min_price}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div id="button_container" className="py-3 px-5 ">
+                    <button className="w-full" disabled={e.min_price === null}>
+                      <Link
+                        href={`/product/${e.id}`}
+                        className="flex gap-2 items-center justify-center  text-[14px] tracking-wider transition-all duration-300 ease-in-out italic bg-white px-5 py-2.5 text-center text-sm font-medium border-1 border-black text-black hover:bg-black hover:text-white"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-5 lg:block hidden"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                          />
+                        </svg>
+                        Shop Now
+                      </Link>
+                    </button>
+                  </div>
+
+                  {/* Sizes medium and large screens screens */}
+                  {!isHomePage && (
+                    <div
+                      id="sizes_section"
+                      className={`w-full opacity-0 md:block hidden  rounded-b-xl -z-10 group-hover:z-0 bg-white pb-5 h-auto left-0 absolute shadow-xl top-[340px] group-hover:opacity-100 px-5`}
+                    >
+                      <h3 className="font-bold block py-3">Quick Add</h3>
+                      <div
+                        id="sizes_container"
+                        className={`${
+                          isArrivalsPath ? "lg:grid-cols-5" : ""
+                        } grid grid-cols-6 sm:grid-cols-5 md:grid-cols-4 gap-x-3 gap-y-3`}
+                      >
+                        {/* Adult Sizes */}
+                        {e.gender !== "kids"
+                          ? dummySizesConstant.map((size) => (
+                              <button
+                                onClick={() => {
+                                  handleAddToCart(e, Number(size.size));
+                                }}
+                                key={size.size}
+                                className={`${size.available ? "block" : "hidden"}
+                                  overflow-hidden focus:bg-black focus:text-white relative text-sm font-medium hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out  size-[45px] flex items-center justify-center border-1 border-gray-400
+                                  `}
+                              >
+                                {size.size}
+                              </button>
+                            ))
+                          : // Kids Sizes
+                            dummySizesKidsConstant.map((size) => (
+                              <button
+                                onClick={() => {
+                                  handleAddToCart(e, size.size);
+                                }}
+                                key={size.size}
+                                className={`${size.available ? "block" : "hidden"}
+                                  overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out size-[45px] flex items-center justify-center border-1 border-gray-400 font-medium
+                                  `}
+                              >
+                                {size.size}
+                              </button>
+                            ))}
                       </div>
                     </div>
+                  )}
 
-                    <div id="button_container" className="py-3 px-5 ">
-                      <button className="w-full">
-                        <Link
-                          href={`/product/${e.id}`}
-                          className="flex gap-2 items-center justify-center  text-[14px] tracking-wider transition-all duration-300 ease-in-out italic bg-white px-5 py-2.5 text-center text-sm font-medium border-1 border-black text-black hover:bg-black hover:text-white"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="size-5"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                            />
-                          </svg>
-                          Shop Now
-                        </Link>
-                      </button>
-
-                      {/* Small Screens Sizes Trigger */}
+                  {/* Sizes small screens */}
+                  {!isHomePage && (
+                    <div
+                      id="sizes_section"
+                      className={` z-10 w-full md:hidden block rounded-b-xl  bg-white pb-5 h-auto left-0 absolute top-[280px] px-5`}
+                    >
                       <div
                         id="sizes_trigger_container"
-                        className="flex justify-between items-center md:hidden"
+                        className="flex justify-between items-center pt-3"
                       >
-                        <h3 className="font-bold py-3">Quick Add</h3>
+                        <h3 className="font-medium text-sm ">Quick Add</h3>
                         <button
                           className={`${isClickedId === e.id ? "active" : ""}`}
                           id="plus_minus_button"
@@ -217,21 +290,12 @@ const Favorites: React.FC = () => {
                           <span></span>
                         </button>
                       </div>
-                    </div>
 
-                    <div
-                      id="sizes_section"
-                      className={`${
-                        visibleProductId === e.id ? "block" : "hidden"
-                      }
-                       w-full md:hidden bg-white pb-5 h-auto z-10 left-0 absolute shadow-xl top-[370px] md:top-[340px] md:group-hover:block px-5`}
-                    >
-                      <h3 className="font-bold md:block hidden py-3">
-                        Quick Add
-                      </h3>
                       <div
                         id="sizes_container"
-                        className="grid grid-cols-6 sm:grid-cols-5 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-x-3 gap-y-3"
+                        className={` ${visibleProductId === e.id ? "block shadow-xl" : "hidden shadow-none"} ${
+                          isArrivalsPath ? "lg:grid-cols-5" : ""
+                        } grid grid-cols-3 bg-white pt-3 gap-x-3 gap-y-3`}
                       >
                         {/* Adult Sizes */}
                         {e.gender !== "kids"
@@ -241,11 +305,9 @@ const Favorites: React.FC = () => {
                                   handleAddToCart(e, Number(size.size));
                                 }}
                                 key={size.size}
-                                className={`${
-                                  size.available ? "block" : "hidden"
-                                }
-                          overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px] w-[45px] flex items-center justify-center border-1 border-black
-                          `}
+                                className={`${size.available ? "block" : "hidden"}
+                                  overflow-hidden focus:bg-black focus:text-white relative text-sm font-medium hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out  size-[45px] flex items-center justify-center border-1 border-gray-400
+                                  `}
                               >
                                 {size.size}
                               </button>
@@ -257,18 +319,16 @@ const Favorites: React.FC = () => {
                                   handleAddToCart(e, size.size);
                                 }}
                                 key={size.size}
-                                className={`${
-                                  size.available ? "block" : "hidden"
-                                }
-                          overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out h-[45px] w-[45px] flex items-center justify-center border-1 border-black
-                          `}
+                                className={`${size.available ? "block" : "hidden"}
+                                  overflow-hidden focus:bg-black focus:text-white relative text-black  hover:bg-gray-300 cursor-pointer transition duration-100 ease-in-out size-[45px] flex items-center justify-center border-1 border-gray-400 font-medium text-sm
+                                  `}
                               >
                                 {size.size}
                               </button>
                             ))}
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               ))}
             </div>

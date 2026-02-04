@@ -39,7 +39,7 @@ const Navebar: React.FC = () => {
   const homePath = usePathname();
 
   const favoritesQuantity = useSelector(
-    (state: RootState) => state.favorites.favoritesQuantity
+    (state: RootState) => state.favorites.favoritesQuantity,
   );
 
   // Top NaveBar Hidden On Scroll
@@ -68,13 +68,13 @@ const Navebar: React.FC = () => {
   return (
     <>
       {/* Top NaveBar */}
-      {visible && <TopNaveBar />}
+      {visible && <TopNaveBar isScrolled={isScrolled} visible={visible} />}
 
       {/* NaveBar */}
       <nav
         id="navebar"
-        style={{ top: isScrolled && visible ? "40px" : "0" }}
-        className={`bg-white fixed  w-full left-0 z-40 shadow-md
+        style={{ top: isScrolled && visible ? "30px" : "0" }}
+        className={`bg-white fixed sm:w-[calc(100%-40px)] w-full left-0 sm:left-1/2 sm:translate-x-[-50%] z-40 shadow-md rounded-lg
         transition-all ease-in-out h-auto duration-400 py-2
         `}
       >
@@ -109,8 +109,8 @@ const Navebar: React.FC = () => {
           <Link href={"/"} className=" mx-auto">
             <Image
               src={"/images/logo/allwalks.svg"}
-              width={100}
-              height={50}
+              width={80}
+              height={40}
               alt=""
             />
           </Link>
@@ -141,7 +141,7 @@ const Navebar: React.FC = () => {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="size-6"
+                      className="size-5.5"
                     >
                       <path
                         strokeLinecap="round"
@@ -152,14 +152,14 @@ const Navebar: React.FC = () => {
                   </Link>
                 </button>
               ) : status === "loading" ? (
-                <Skeleton className="size-6 rounded-full" />
+                <Skeleton className="size-5.5 rounded-full" />
               ) : (
                 // If There Is User Show His Profile Picture
                 <DropdownMenu>
                   <DropdownMenuTrigger>
                     <Avatar>
                       {!isLoaded && (
-                        <Skeleton className="size-6 rounded-full" />
+                        <Skeleton className="size-5.5 rounded-full" />
                       )}
                       {/* Profile Picture Exists */}
                       {session?.user?.image ? (
@@ -207,7 +207,7 @@ const Navebar: React.FC = () => {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="size-6"
+                    className="size-5.5"
                   >
                     <path
                       strokeLinecap="round"

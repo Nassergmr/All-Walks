@@ -15,16 +15,23 @@ export const getMoreProducts = async () => {
   return res.data;
 };
 
+export const getNewArrivalsProducts = async () => {
+  const res = await axiosInstance.get(
+    `/stockx/products?sort=release_date&product_type=sneakers&page=1&limit=8`,
+  );
+  return res.data;
+};
+
 export const getNewArrivalsMenProducts = async () => {
   const res = await axiosInstance.get(
-    `/stockx/products?sort=rank&product_type=sneakers&page=3&gender=men&limit=8`
+    `/stockx/products?sort=release_date&product_type=sneakers&page=1&gender=men&limit=8`,
   );
   return res.data;
 };
 
 export const getNewArrivalsWomenProducts = async () => {
   const res = await axiosInstance.get(
-    `/stockx/products?sort=rank&product_type=sneakers&page=3&gender=women&limit=8`
+    `/stockx/products?sort=release_date&product_type=sneakers&page=1&gender=women&limit=8`,
   );
   return res.data;
 };
@@ -40,7 +47,7 @@ export const getAllMenProducts = async (page = 1) => {
   const limit = 20;
 
   const res = await axiosInstance.get(
-    `/stockx/products?limit=${limit}&product_type=sneakers&gender=men&page=${page}`
+    `/stockx/products?limit=${limit}&product_type=sneakers&gender=men&page=${page}`,
   );
   const products = res.data.data;
 
@@ -51,7 +58,7 @@ export const getAllWomenProducts = async (page = 1) => {
   const limit = 20;
 
   const res = await axiosInstance.get(
-    `/stockx/products?limit=${limit}&product_type=sneakers&gender=women&page=${page}`
+    `/stockx/products?limit=${limit}&product_type=sneakers&gender=women&page=${page}`,
   );
   const products = res.data.data;
 
@@ -62,7 +69,7 @@ export const getAllKidsProducts = async (page = 1) => {
   const limit = 20;
 
   const res = await axiosInstance.get(
-    `/stockx/products?limit=${limit}&product_type=sneakers&gender=kids&page=${page}`
+    `/stockx/products?limit=${limit}&product_type=sneakers&gender=kids&page=${page}`,
   );
   const products = res.data.data;
 
@@ -71,10 +78,10 @@ export const getAllKidsProducts = async (page = 1) => {
 
 export const getMenProductsByBrand = async (
   brand: string,
-  page: number = 1
+  page: number = 1,
 ) => {
   const res = await axiosInstance.get(
-    `/stockx/products?brand=${brand}&limit=20&product_type=sneakers&gender=men&page=${page}`
+    `/stockx/products?brand=${brand}&limit=20&product_type=sneakers&gender=men&page=${page}`,
   );
   const products = res.data.data;
 
@@ -83,10 +90,10 @@ export const getMenProductsByBrand = async (
 
 export const getWomenProductsByBrand = async (
   brand: string,
-  page: number = 1
+  page: number = 1,
 ) => {
   const res = await axiosInstance.get(
-    `/stockx/products?brand=${brand}&limit=20&product_type=sneakers&gender=women&page=${page}`
+    `/stockx/products?brand=${brand}&limit=20&product_type=sneakers&gender=women&page=${page}`,
   );
   const products = res.data.data;
 
@@ -95,10 +102,10 @@ export const getWomenProductsByBrand = async (
 
 export const getKidsProductsByBrand = async (
   brand: string,
-  page: number = 1
+  page: number = 1,
 ) => {
   const res = await axiosInstance.get(
-    `/stockx/products?brand=${brand}&limit=20&product_type=sneakers&gender=kids&page=${page}`
+    `/stockx/products?brand=${brand}&limit=20&product_type=sneakers&gender=kids&page=${page}`,
   );
   const products = res.data.data;
 
@@ -116,8 +123,8 @@ export const getSingleProduct = async (id: string) => {
 export const getSeachProducts = async (searchItem: string) => {
   const res = await axiosInstance.get(
     `/stockx/products?query=${encodeURIComponent(
-      searchItem
-    )}&limit=50&product_type=sneakers&sort=rank`
+      searchItem,
+    )}&limit=50&product_type=sneakers&sort=rank`,
   );
 
   const products = res.data.data;

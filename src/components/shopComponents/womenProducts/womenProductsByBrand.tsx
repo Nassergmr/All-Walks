@@ -6,9 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Components
-import {
-  getWomenProductsByBrand,
-} from "@/services/productServices";
+import { getWomenProductsByBrand } from "@/services/productServices";
 import { allowedBrandsConstant } from "@/components/constants/constants";
 import MainProductCard from "@/components/elements/mainProductCard";
 import ScrollToTop from "@/components/elements/scrollToTop";
@@ -37,7 +35,6 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
   const scrollTo = useRef<HTMLDivElement>(null);
   const isFetchingRef = useRef(false);
 
-
   // Fetch Products
   const fetchProducts = async (page: number, brand: string) => {
     try {
@@ -46,14 +43,14 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
 
       const filteredProducts = products.filter(
         (item: { min_price: number | null }) =>
-          item.min_price !== null && item.min_price !== 0
+          item.min_price !== null && item.min_price !== 0,
       );
       setWomenProducts((prev) => [...prev, ...filteredProducts]);
 
       // Handle The Case Where The Next Page Could Not Have Any Products
       const nextPageResponse = await getWomenProductsByBrand(
         brand,
-        currentPage + 1
+        currentPage + 1,
       );
       if (
         !nextPageResponse.products ||
@@ -118,7 +115,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
   }, [currentPage, isNextPageNull]);
 
   const uniqueProducts = Array.from(
-    new Map(WomenProducts.map((item) => [item.id, item])).values()
+    new Map(WomenProducts.map((item) => [item.id, item])).values(),
   );
 
   const settings = {
@@ -273,7 +270,7 @@ const WomenProductsByBrand: React.FC<WomenProductsByBrandProps> = ({
         >
           <div
             id="products_container"
-            className="grid lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 mx-auto sm:gap-3 gap-y-5"
+            className="grid lg:grid-cols-3 xl:grid-cols-4 custom grid-cols-2  gap-y-4   gap-x-1 md:gap-3"
           >
             {uniqueProducts.map((e) => (
               <MainProductCard

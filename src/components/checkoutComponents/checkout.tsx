@@ -22,7 +22,7 @@ import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
 );
 
 const Checkout: React.FC = () => {
@@ -30,7 +30,7 @@ const Checkout: React.FC = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
   const cartQuantity = useSelector(
-    (state: RootState) => state.cart.cartQuantity
+    (state: RootState) => state.cart.cartQuantity,
   );
 
   const getTotal = () => {
@@ -53,7 +53,7 @@ const Checkout: React.FC = () => {
   }).format(totalAmount);
 
   return (
-    <div>
+    <div className="bg-white">
       <div id="logo_container" className="py-10 w-fit  px-5 sm:px-12">
         <Link href={"/"} className="w-fit">
           <Image

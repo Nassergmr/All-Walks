@@ -10,8 +10,8 @@ const ButtonMain: React.FC<ButtonMainProps> = ({ label, href }) => {
   return (
     <Link href={href} className="">
       <Button
-        className="hover:bg-black  italic bg-white text-black transition-all duration-300 ease-in-out hover:text-white border-none"
-        size="lg"
+        className="hover:bg-black rounded-full italic bg-white text-black transition-all duration-300 ease-in-out hover:text-white border-none"
+        size="default"
         variant="outline"
       >
         {label}

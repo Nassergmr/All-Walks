@@ -4,8 +4,11 @@ import HomeProductCard from "@/components/elements/homeProductCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+// import { useState } from "react";
 
 const Section1: React.FC = () => {
+  // const [showManButton, setShowManButton] = useState();
+
   const settings = {
     infinite: true,
     speed: 500,
@@ -43,9 +46,11 @@ const Section1: React.FC = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false,
           autoplay: true,
           autoplaySpeed: 2000,
+          centerMode: true,
+          className: "center",
+          centerPadding: "30px",
         },
       },
     ],
@@ -54,44 +59,60 @@ const Section1: React.FC = () => {
   return (
     <div className="sm:px-[20px] px-0 sm:my-[4rem] my-[2rem]">
       {/* Large Screens */}
-      <div className="gap-2 lg:grid hidden grid-cols-3">
+      <div className="gap-2 lg:grid hidden grid-cols-4 uppercase">
         <HomeProductCard
-          imageSrc="/images/home-images/25Q1_HB_A11475_W_OnBody_KneeDown_01789-min-min.png"
-          title="New Arrivals
-"
-          paragraph="Fresh styles, just dropped."
+          imageSrc="/images/banners_small_screen/pexels-kowalievska-1040427.jpg"
+          title="New Arrivals"
+          showBoth={true}
         />
 
         <HomeProductCard
-          imageSrc="/images/home-images/24Q4_A10961_A11094_A11161_TreeRunnerGo_WoolDasher2Mizzle_ColorFlow1_04405-min-min.png"
-          title="Lightweight Comfort"
-          paragraph="Feels like walking on air."
+          imageSrc="/images/banners_small_screen/pexels-ralph-rabago-3214701.jpg"
+          title="MENS"
+          showManButton={true}
+          showBoth={false}
         />
         <HomeProductCard
-          imageSrc="/images/home-images/pexels-jose-martin-segura-benites-1422456152-27100548-min.jpg"
-          title="Everyday Classics"
-          paragraph="Go-to comfort. Timeless style."
+          imageSrc="/images/banners_small_screen/pexels-madsdonald-1615748.jpg"
+          title="WOMENS"
+          showWomenButton={true}
+          showBoth={false}
+        />
+
+        <HomeProductCard
+          imageSrc="/images/banners_small_screen/pexels-cottonbro-7207554.jpg"
+          title="KIDS"
+          showKidsButton={true}
+          showBoth={false}
         />
       </div>
 
       {/* Medium & Small Screens */}
-      <div className="w-full lg:hidden block h-[60vh] sm:h-[70vh]">
+      <div className="w-full lg:hidden block h-[50vh] sm:h-[70vh]">
         <Slider {...settings}>
           <HomeProductCard
-            imageSrc="/images/home-images/25Q1_HB_A11475_W_OnBody_KneeDown_01789-min-min.png"
+            imageSrc="/images/banners_small_screen/pexels-kowalievska-1040427.jpg"
             title="New Arrivals"
-            paragraph="Fresh styles, just dropped."
+            showBoth={true}
           />
 
           <HomeProductCard
-            imageSrc="/images/home-images/24Q4_A10961_A11094_A11161_TreeRunnerGo_WoolDasher2Mizzle_ColorFlow1_04405-min-min.png"
-            title="Lightweight Comfort"
-            paragraph="Feels like walking on air."
+            imageSrc="/images/banners_small_screen/pexels-ralph-rabago-3214701.jpg"
+            title="MENS"
+            showManButton={true}
+            showBoth={false}
           />
           <HomeProductCard
-            imageSrc="/images/home-images/pexels-jose-martin-segura-benites-1422456152-27100548-min.jpg"
-            title="Everyday Classics"
-            paragraph="Go-to comfort. Timeless style."
+            imageSrc="/images/banners_small_screen/pexels-madsdonald-1615748.jpg"
+            title="WOMENS"
+            showWomenButton={true}
+            showBoth={false}
+          />
+          <HomeProductCard
+            imageSrc="/images/banners_small_screen/pexels-cottonbro-7207554.jpg"
+            title="KIDS"
+            showKidsButton={true}
+            showBoth={false}
           />
         </Slider>
       </div>

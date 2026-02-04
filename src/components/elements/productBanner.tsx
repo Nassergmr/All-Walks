@@ -1,9 +1,9 @@
 const ProductBanner: React.FC = () => {
   return (
-    <div>
+    <div className=" sm:py-[4rem] py-[2rem] bg-white">
       <div
         id="banner_container"
-        className="container bg-gray-100 py-8 gap-y-8  grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 sm:my-[4rem] my-[2rem]"
+        className="container bg-gray-100 py-8 gap-y-8  grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1"
       >
         <div id="box" className="flex lg:mx-auto mx-0 items-center gap-3">
           <svg

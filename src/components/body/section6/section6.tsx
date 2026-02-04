@@ -18,7 +18,7 @@ const Section6: React.FC = () => {
   };
 
   return (
-    <div className="container bg-[#EBEBEB] relative  py-6 text-center  sm:my-[4rem] my-[2rem] mx-auto">
+    <div className="container  relative  py-6 text-center  sm:my-[4rem] my-[2rem] mx-auto">
       {!submited ? (
         <>
           <h2 className="sm:text-3xl text-2xl pt-10  sm:mb-[2rem] mb-[1rem] font-bold text-[#212121]">
@@ -48,7 +48,7 @@ const Section6: React.FC = () => {
             <div id="button_container">
               <Button
                 onClick={handleEmail}
-                className="hover:bg-white h-[53px] bg-black text-white transition-all duration-300 ease-in-out hover:text-black"
+                className="hover:bg-white h-[51px] bg-black text-white transition-all duration-300 ease-in-out hover:text-black"
                 size="lg"
                 variant="outline"
               >

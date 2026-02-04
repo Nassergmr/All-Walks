@@ -36,12 +36,12 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
   const [index, setIndex] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [selectedSize, setSelectedSize] = useState<number | string | null>(
-    null
+    null,
   );
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const isAdded = useSelector((state: RootState) =>
-    state.favorites.favoritesItems.some((item) => item.id === id)
+    state.favorites.favoritesItems.some((item) => item.id === id),
   );
 
   const dummySizes = dummySizesConstant;
@@ -86,10 +86,10 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
   };
 
   return (
-    <div>
+    <div className="bg-white">
       <div
         id="product_section"
-        className="container grid sm:mt-[6rem] sm:mb-[4rem] mt-[9rem] mb-[2rem] gap-10   lg:grid-cols-2 grid-cols-1 relative justify-between"
+        className="container grid sm:pt-[6rem] sm:mb-[4rem] pt-[9rem] mb-[2rem] gap-10  bg-white lg:grid-cols-2 grid-cols-1 relative justify-between"
       >
         {/* Left */}
         <div id="left">
@@ -201,8 +201,8 @@ const SingleProduct: React.FC<Props> = ({ id }) => {
                   {productInfo.gender === "men"
                     ? "For Him"
                     : productInfo.gender === "women"
-                    ? "For Her"
-                    : "For Kids"}
+                      ? "For Her"
+                      : "For Kids"}
                 </p>
               </div>
             </div>

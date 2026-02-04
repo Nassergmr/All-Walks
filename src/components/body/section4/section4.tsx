@@ -2,17 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Slider from "react-slick";
-import { getMoreProducts } from "@/services/productServices";
+import { getNewArrivalsProducts } from "@/services/productServices";
 import MainProductCard from "@/components/elements/mainProductCard";
 import { Product } from "@/types/types";
-
-// interface Product {
-//   id: string;
-//   image: string;
-//   model: string;
-//   min_price: number;
-//   gender: string;
-// }
 
 function SampleNextArrow({
   onClick,
@@ -107,7 +99,7 @@ const settings = {
         slidesToScroll: 1,
         centerMode: false,
         autoplay: false,
-        autoplaySpeed: 3000,
+        centerPadding: "50px",
       },
     },
     {
@@ -115,8 +107,7 @@ const settings = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
-        centerMode: true,
-        centerPadding: "40px",
+        centerMode: false,
         arrows: false,
       },
     },
@@ -124,32 +115,24 @@ const settings = {
 };
 
 const Section4: React.FC = () => {
-  const [moreProducts, setmoreProducts] = useState<Product[]>([]);
+  const [newArrivals, setNewArrivals] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchedProducts = async () => {
-      const data = await getMoreProducts();
+      const products = await getNewArrivalsProducts();
 
-      interface ProductItem {
-        product_type: string;
-      }
-
-      const filtered = data?.data?.filter(
-        (item: ProductItem) => item.product_type === "sneakers"
-      );
-      setmoreProducts(filtered);
+      setNewArrivals(products.data);
     };
-
     fetchedProducts();
   }, []);
 
   return (
     <div className="sm:px-[20px] px-0  sm:my-[4rem] my-[2rem]">
-      <h1 className="uppercase px-[20px]   sm:my-[4rem] my-[2rem] text-2xl font-bold ">
-        Hot Picks
+      <h1 className="uppercase mx-auto hot_picks text-center font-medium text-xl w-fit  sm:my-[4rem] my-[2rem]">
+        New arrivals
       </h1>
       <Slider {...settings}>
-        {moreProducts.map((e) => (
+        {newArrivals.map((e) => (
           <div className="md:px-1" key={e.id}>
             <MainProductCard
               e={e}

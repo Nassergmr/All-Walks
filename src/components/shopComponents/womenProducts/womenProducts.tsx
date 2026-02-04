@@ -34,7 +34,7 @@ const WomenProducts: React.FC = () => {
     const { products } = await getAllWomenProducts(page);
 
     const filteredProducts = products.filter(
-      (item: Product) => item.min_price !== null
+      (item: Product) => item.min_price !== null,
     );
 
     setWomenProducts((prev) => [...prev, ...filteredProducts]);
@@ -68,7 +68,7 @@ const WomenProducts: React.FC = () => {
   }, [currentPage]);
 
   const uniqueProducts = Array.from(
-    new Map(womenProducts.map((item) => [item.id, item])).values()
+    new Map(womenProducts.map((item) => [item.id, item])).values(),
   );
 
   const settings = {
@@ -182,10 +182,7 @@ const WomenProducts: React.FC = () => {
             >
               {allowedBrandsConstant.map((brandItem) => (
                 <div key={brandItem} className="px-1">
-                  <Link
-                    href={`/products-women/${brandItem}`}
-                    className="block"
-                  >
+                  <Link href={`/products-women/${brandItem}`} className="block">
                     <button className="py-2 w-full px-3 text-sm sm:text-md text-center bg-gray-100 hover:bg-gray-200 rounded-full cursor-pointer whitespace-nowrap overflow-visible">
                       {brandItem}
                     </button>
@@ -203,7 +200,7 @@ const WomenProducts: React.FC = () => {
         >
           <div
             id="products_container"
-            className="grid lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 gap-1 sm:gap-3"
+            className="grid lg:grid-cols-3 xl:grid-cols-4 custom grid-cols-2  gap-y-4   gap-x-1 md:gap-3"
           >
             {uniqueProducts.map((e) => (
               <MainProductCard

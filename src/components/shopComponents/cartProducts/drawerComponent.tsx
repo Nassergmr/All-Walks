@@ -45,7 +45,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
 
   const dispatch = useDispatch();
   const cartQuantity = useSelector(
-    (state: RootState) => state.cart.cartQuantity
+    (state: RootState) => state.cart.cartQuantity,
   );
   const cartItems = useSelector((state: RootState) => state.cart.cartItems);
 
@@ -95,7 +95,7 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="size-6"
+          className="size-5.5"
         >
           <path
             strokeLinecap="round"
@@ -175,13 +175,13 @@ const DrawerComponent: React.FC<DrawerComponentProps> = ({
         {cartItems.length > 0 ? (
           <div
             id="cart_items_container"
-            className="flex h-full overflow-y-auto flex-col px-5"
+            className="flex h-full overflow-y-auto flex-col"
           >
             {cartProducts.map((item, index) => (
               <React.Fragment key={`${item.id} - ${item.size}`}>
                 <div
                   id="item_container"
-                  className="grid grid-cols-[30%_60%_5%] py-5  items-center"
+                  className="grid sm:grid-cols-[30%_58%_5%] grid-cols-[30%_55%_8%] py-5 pl-5 items-center"
                   // sm:grid-cols-[40%_40%_20%] grid-cols-[40%_50%_10%]
                 >
                   {/* Left */}

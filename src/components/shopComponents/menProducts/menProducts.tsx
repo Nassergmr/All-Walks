@@ -200,7 +200,7 @@ const MenProducts: React.FC = () => {
         >
           <div
             id="products_container"
-            className="grid lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 gap-1 sm:gap-3"
+            className="grid lg:grid-cols-3 xl:grid-cols-4 custom grid-cols-2  gap-y-4 gap-x-1 md:gap-3"
           >
             {uniqueProducts.map((e) => (
               <MainProductCard
