@@ -4,11 +4,8 @@ import HomeProductCard from "@/components/elements/homeProductCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-// import { useState } from "react";
 
 const Section1: React.FC = () => {
-  // const [showManButton, setShowManButton] = useState();
-
   const settings = {
     infinite: true,
     speed: 500,

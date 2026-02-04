@@ -33,7 +33,7 @@ const HomeProductCard: React.FC<cardItemsProps> = ({
           id="content"
           className={`${title === "New Arrivals" ? "top-[calc(50%+12px)] translate-y-[calc(-50%+12px)]" : "top-1/2 -translate-y-1/2"} absolute  left-1/2 -translate-x-1/2 text-white flex flex-col gap-3 items-center`}
         >
-          <h2 className=" text-sm font-medium transition-all ease-in-out duration-500 group-hover:border-transparent rounded-full border border-none sm:border-white px-4.5 py-1.5">
+          <h2 className=" text-sm font-medium transition-all ease-in-out duration-500 sm:group-hover:border-transparent rounded-full border  sm:border-white px-4.5 py-1.5">
             {title}
           </h2>
           <div
@@ -42,8 +42,8 @@ const HomeProductCard: React.FC<cardItemsProps> = ({
           >
             {showBoth && (
               <>
-                <ButtonMain2 label="Shop Men" href="/products-men" />
-                <ButtonMain2 label="Shop Women" href="/products-women" />
+                <ButtonMain2 label="Shop Men" href="/new-arrivals-men" />
+                <ButtonMain2 label="Shop Women" href="/new-arrivals-women" />
               </>
             )}
             {showManButton && (

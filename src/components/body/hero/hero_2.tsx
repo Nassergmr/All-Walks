@@ -80,60 +80,6 @@ export default function Hero_2() {
           </div>
         </div>
       </div>
-
-      {/* Large Screens */}
-      {/* <div id="right_lg" className="xl:block hidden">
-           <div id="products_container" className="grid grid-cols-3  gap-2">
-             {jordanBrand.map((e) => (
-               <MainProductCard
-                 e={e}
-                 id={e.id}
-                 gender={e.gender}
-                 key={e.id}
-                 imageSrc={e.image}
-                 model={e.model}
-                 price={e.min_price}
-                 link={`/product/${e.id}`}
-               />
-             ))}
-           </div>
-         </div> */}
-
-      {/* Medium Secreens */}
-      {/* <div id="right_md" className="md:block xl:hidden hidden">
-           <div id="products_container" className="grid grid-cols-2 gap-2">
-             {jordanBrandSliced.map((e) => (
-               <MainProductCard
-                 e={e}
-                 id={e.id}
-                 gender={e.gender}
-                 key={e.id}
-                 imageSrc={e.image}
-                 model={e.model}
-                 price={e.min_price}
-                 link={`/product/${e.id}`}
-               />
-             ))}
-           </div>
-         </div> */}
-
-      {/* Small Screens */}
-      {/* <div id="right_sm" className="block md:hidden">
-           <Slider {...settings}>
-             {jordanBrand.map((e) => (
-               <MainProductCard
-                 e={e}
-                 id={e.id}
-                 gender={e.gender}
-                 key={e.id}
-                 imageSrc={e.image}
-                 model={e.model}
-                 price={e.min_price}
-                 link={`/product/${e.id}`}
-               />
-             ))}
-           </Slider>
-         </div> */}
     </div>
   );
 }
